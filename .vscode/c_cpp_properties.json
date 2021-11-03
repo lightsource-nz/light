@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "rp2040-pico",
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "CFG_TUSB_MCU=RP2040"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,1088 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						72,
+						74,
+						76
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "board/rpi_pico",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "board/rpi_pico"
+				},
+				{
+					"build" : "module/mod_light_core",
+					"childIndexes" : 
+					[
+						3
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "module/mod_light_core",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk",
+					"childIndexes" : 
+					[
+						4,
+						5,
+						71
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/tools",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/tools"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src",
+					"childIndexes" : 
+					[
+						6,
+						17,
+						68
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common",
+					"childIndexes" : 
+					[
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/boot_picoboot",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/boot_picoboot"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/boot_uf2",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/boot_uf2"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_base",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_base"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_bit_ops",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_bit_ops"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_binary_info",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_binary_info"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_divider",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_divider"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_sync",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_sync"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_time",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_time"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_util",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_util"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/common/pico_stdlib",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/common/pico_stdlib"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common",
+					"childIndexes" : 
+					[
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33,
+						34,
+						35,
+						36,
+						37,
+						38,
+						39,
+						40,
+						41,
+						42,
+						43,
+						44,
+						45,
+						46,
+						47,
+						48,
+						49,
+						50,
+						51,
+						52,
+						53,
+						54,
+						55,
+						56,
+						57,
+						58,
+						59,
+						60,
+						61,
+						62,
+						63,
+						64,
+						65,
+						67
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_base",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_base"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_claim",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_claim"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_adc",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_adc"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_clocks",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_clocks"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_dma",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_dma"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_divider",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_divider"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_exception",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_exception"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_flash",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_flash"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_gpio",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_gpio"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_i2c",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_i2c"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_interp",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_interp"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_irq",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_irq"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_pio",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_pio"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_pll",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_pll"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_pwm",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_pwm"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_resets",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_resets"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_rtc",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_rtc"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_spi",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_spi"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_sync",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_sync"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_timer",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_timer"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_uart",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_uart"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_vreg",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_vreg"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_watchdog",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_watchdog"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/hardware_xosc",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/hardware_xosc"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_bootrom",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_bootrom"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_platform",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_platform"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/boot_stage2",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/boot_stage2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_bootsel_via_double_reset",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_bootsel_via_double_reset"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_multicore",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_multicore"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_unique_id",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_unique_id"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_bit_ops",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_bit_ops"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_divider",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_divider"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_double",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_double"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_int64_ops",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_int64_ops"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_float",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_float"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_mem_ops",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_mem_ops"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_malloc",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_malloc"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_printf",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_printf"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_stdio",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_stdio"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_stdio_semihosting",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_stdio_semihosting"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_stdio_uart",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_stdio_uart"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/cmsis",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/cmsis"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/tinyusb",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/tinyusb"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_stdio_usb",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_stdio_usb"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_stdlib",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_stdlib"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_cxx_options",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_cxx_options"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_standard_link",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_standard_link"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_fix",
+					"childIndexes" : 
+					[
+						66
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_fix"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 65,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_fix/rp2040_usb_device_enumeration"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2_common/pico_runtime",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2_common/pico_runtime"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2040",
+					"childIndexes" : 
+					[
+						69,
+						70
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2040"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2040/hardware_regs",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 68,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2040/hardware_regs"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/src/rp2040/hardware_structs",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 68,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/src/rp2040/hardware_structs"
+				},
+				{
+					"build" : "module/mod_light_core/pico-sdk/docs",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 3,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver/docs"
+				},
+				{
+					"build" : "module/mod_display_board",
+					"childIndexes" : 
+					[
+						73
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 4,
+					"source" : "module/mod_display_board"
+				},
+				{
+					"build" : "module/mod_display_board/pico-sdk",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 72,
+					"projectIndex" : 4,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver"
+				},
+				{
+					"build" : "module/mod_display_driver",
+					"childIndexes" : 
+					[
+						75
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 5,
+					"source" : "module/mod_display_driver"
+				},
+				{
+					"build" : "module/mod_display_driver/pico-sdk",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 74,
+					"projectIndex" : 5,
+					"source" : "C:/workspaces/embedded/projects/pico-sdk-midi-driver"
+				},
+				{
+					"build" : "module/mod_display_oled",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 6,
+					"source" : "module/mod_display_oled"
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						4,
+						5,
+						6
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "light"
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "light_bsp",
+					"parentIndex" : 0
+				},
+				{
+					"childIndexes" : 
+					[
+						3
+					],
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "mod_light_core",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29,
+						30,
+						31,
+						32,
+						33,
+						34,
+						35,
+						36,
+						37,
+						38,
+						39,
+						40,
+						41,
+						42,
+						43,
+						44,
+						45,
+						46,
+						47,
+						48,
+						49,
+						50,
+						51,
+						52,
+						53,
+						54,
+						55,
+						56,
+						57,
+						58,
+						59,
+						60,
+						61,
+						62,
+						63,
+						64,
+						65,
+						66,
+						67,
+						68,
+						69,
+						70,
+						71
+					],
+					"name" : "pico_sdk",
+					"parentIndex" : 2,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						72,
+						73
+					],
+					"name" : "mod_display_board",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						74,
+						75
+					],
+					"name" : "mod_display_driver",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						76
+					],
+					"name" : "mod_display_oled",
+					"parentIndex" : 0
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 44,
+					"id" : "bs2_default::@a9804b812e4568426614",
+					"jsonFile" : "target-bs2_default-Debug-35692000edd18865e059.json",
+					"name" : "bs2_default",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 44,
+					"id" : "bs2_default_bin::@a9804b812e4568426614",
+					"jsonFile" : "target-bs2_default_bin-Debug-a639223354f8d81397ed.json",
+					"name" : "bs2_default_bin",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 44,
+					"id" : "bs2_default_padded_checksummed_asm::@a9804b812e4568426614",
+					"jsonFile" : "target-bs2_default_padded_checksummed_asm-Debug-d3b3608b019ab2d42b47.json",
+					"name" : "bs2_default_padded_checksummed_asm",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "light_core_demo::@9b45a2d1dc1485f79759",
+					"jsonFile" : "target-light_core_demo-Debug-7635d912fdc99584f278.json",
+					"name" : "light_core_demo",
+					"projectIndex" : 2
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/workspaces/embedded/projects/light/build",
+		"source" : "C:/workspaces/embedded/projects/light"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}
