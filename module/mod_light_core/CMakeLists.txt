@@ -24,6 +24,7 @@ target_include_directories(
     light_core_demo INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src
     ${CMAKE_CURRENT_LIST_DIR}/include
+    ${CMAKE_CURRENT_LIST_DIR}/demo
 )
 
 target_sources(

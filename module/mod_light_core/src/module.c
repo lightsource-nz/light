@@ -1,12 +1,17 @@
 #include <light.h>
+#include <light_module.h>
 #include <light_core.h>
 
+#include <stddef.h>
+
 void light_core_init(light_app_context_t *app);
+void light_core_do_log(const char *msg);
 
 static light_board_type_t *light_board_type_table[LIGHT_BOARD_TYPES_MAX];
 static uint8_t light_board_type_count;
 
 static light_board_type_t board_type_mainboard = {
+        .id = LIGHT_BOARD_TYPE_ID_MAINBOARD,
         .name = LIGHT_BOARD_TYPE_NAME_MAINBOARD
 };
 
@@ -20,6 +25,11 @@ static light_log_context_t logger = {
         .handler = &light_core_do_log
 };
 
+light_module_t *_light_modules[LIGHT_DEFINED_MODULES_MAX];
+uint8_t _light_module_count;
+
+LIGHT_MODULE_IMPLEMENT(this_module);
+
 void light_init()
 {
         light_module_register(&this_app, &this_module);
@@ -28,27 +38,25 @@ void light_init()
 void light_core_init(light_app_context_t *app)
 {
         light_board_type_count = 0;
-        light_board_type_register(LIGHT_BOARD_TYPE_ID_MAINBOARD, &board_type_mainboard);
+        light_board_type_register(&board_type_mainboard);
 
 }
 
-uint8_t light_board_type_register(uint8_t id, light_board_type_t *bt)
+uint8_t light_board_type_register(light_board_type_t *bt)
 {
-        if(id < LIGHT_BOARD_TYPES_MAX) {
-                if(light_board_type_count < LIGHT_BOARD_TYPES_MAX) {
-                        light_board_type_table[id] = bt;
-                        light_board_type_count++; 
-                }
-                return LIGHT_ALLOC_LIMIT_REACHED;
+        if(light_board_type_count < LIGHT_BOARD_TYPES_MAX) {
+                light_board_type_table[light_board_type_count++] = bt;
+                return LIGHT_OK;
         }
-        return LIGHT_INVALID_ARG;
+        return LIGHT_ALLOC_LIMIT_REACHED;
         
 }
 
 light_board_type_t *light_board_type_get(uint8_t id)
 {
-        if(id < LIGHT_BOARD_TYPES_MAX) {
-                return light_board_type_table[id];
+        for(uint8_t i = 0; i < light_board_type_count; i++) {
+                if(light_board_type_table[i]->id == id)
+                        return light_board_type_table[i];
         }
         return NULL;
 }

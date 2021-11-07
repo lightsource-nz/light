@@ -3,6 +3,5 @@
 
 #include <light.h>
 
-LIGHT_MODULE_DEFINE(light_core);
 
 #endif
