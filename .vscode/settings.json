@@ -7,6 +7,9 @@
     "files.associations": {
         "tusb.h": "c",
         "board.h": "c",
-        "tusb_option.h": "c"
+        "tusb_option.h": "c",
+        "display_ic.h": "c",
+        "display_panel.h": "c",
+        "light_board.h": "c"
     }
 }

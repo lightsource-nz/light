@@ -14,7 +14,14 @@ target_include_directories(
 target_sources(
     mod_light_core INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/module.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/log.c
     )
+
+target_link_libraries(
+    mod_light_core INTERFACE
+    light_bsp
+    pico_stdlib
+)
 
 add_executable(
     light_core_demo
@@ -22,8 +29,6 @@ add_executable(
 
 target_include_directories(
     light_core_demo INTERFACE
-    ${CMAKE_CURRENT_LIST_DIR}/src
-    ${CMAKE_CURRENT_LIST_DIR}/include
     ${CMAKE_CURRENT_LIST_DIR}/demo
 )
 
@@ -35,5 +40,6 @@ target_sources(
 target_link_libraries(
     light_core_demo
     mod_light_core
+    light_bsp
     pico_stdlib
 )

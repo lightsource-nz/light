@@ -1,14 +1,4 @@
 /*****************************************************************************
-* | File        :   OLED_2in23_c.h
-* | Author      :   
-* | Function    :   2.23inch OLEDDrive function
-* | Info        :
-*----------------
-* |	This version:   V1.0
-* | Date        :   2021-03-16
-* | Info        :
-* -----------------------------------------------------------------------------
-#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documnetation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -27,8 +17,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 ******************************************************************************/
-#ifndef __OLED_2IN23_C_H
-#define __OLED_2IN23_C_H		
+#ifndef __DRIVER_SH1107_H
+#define __DRIVER_SH1107_H		
 
 #include "config_display_oled.h"
 
@@ -42,10 +32,6 @@ function:
 #define IIC_CMD        0X00
 #define IIC_RAM        0X40
 
-
-#define OLED_2in23_WIDTH  128//OLED width
-#define OLED_2in23_HEIGHT 32 //OLED height
-
 #define OLED_CS_0      DEV_Digital_Write(EPD_CS_PIN,0)
 #define OLED_CS_1      DEV_Digital_Write(EPD_CS_PIN,1)
 
@@ -56,13 +42,8 @@ function:
 #define OLED_DC_1       DEV_Digital_Write(EPD_DC_PIN,1)
 
 
-
-void OLED_2in23_Init(void);
-void OLED_2in23_Clear(uint8_t chFill);
-void OLED_2in23_draw_point(uint8_t chXpos, uint8_t chYpos, uint8_t chPoint);
-void OLED_2in23_draw_bitmap(unsigned char x,unsigned char y,const unsigned char *pBmp, 
-					unsigned char chWidth,unsigned char chHeight);
-void OLED_2in23_refresh_gram(void);
+void display_sh1107_init(uint8_t id);
+void display_sh1107_clear_screen(void);
+void OLED_1in3_C_Display(const UBYTE *Image);
 
 #endif  
-	 
