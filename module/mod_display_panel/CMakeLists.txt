@@ -21,6 +21,7 @@ target_include_directories(
 
 target_link_libraries(
     mod_display_panel INTERFACE
+    mod_display_ic
     mod_light_core
     pico_stdlib
     )

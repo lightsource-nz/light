@@ -14,4 +14,8 @@ extern uint8_t _light_module_count;
         { if (_light_module_count < LIGHT_DEFINED_MODULES_MAX) \
                 _light_modules[_light_module_count++] = &(module); }
 
+uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod);
+
+light_module_t *light_module_reference_resolve(const char *ref);
+
 #endif

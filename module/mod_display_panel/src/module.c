@@ -1,17 +1,24 @@
 #include <light.h>
 #include <light/module.h>
-                                              
+
+#include <light_core.h>
+#include <light/display_ic.h>
 #include <light/display_panel.h>
 
 #include <stddef.h>
 
 static light_component_t component_type_display_panel = {
-        .id = LIGHT_COMPONENT_TYPE_ID_DISPLAY_PANEL,
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL
 };
 
 static light_module_t this_module = {
-        .init = &light_display_panel_init
+        .name = LIGHT_MODULE_NAME_DISPLAY_PANEL,
+        .type = LIGHT_MODULE_BASE,
+        .init = &light_display_panel_init,
+        .deps_count = 2,
+        .depends_on = { LIGHT_MODULE_NAME_LIGHT_CORE,
+                        LIGHT_MODULE_NAME_DISPLAY_IC },
+        .decl_count = 0
 };
 
 LIGHT_MODULE_IMPLEMENT(this_module);

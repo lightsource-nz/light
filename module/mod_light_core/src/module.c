@@ -4,6 +4,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 
 void light_core_init(light_app_context_t *app);
 void light_core_do_log(const char *msg);
@@ -12,14 +13,17 @@ static light_component_t *light_component_type_table[LIGHT_COMPONENT_TYPES_MAX];
 static uint8_t light_component_type_count;
 
 static light_component_t component_type_mainboard = {
-        .id = LIGHT_COMPONENT_TYPE_ID_MAINBOARD,
         .name = LIGHT_COMPONENT_TYPE_NAME_MAINBOARD
 };
 
 static light_app_context_t this_app;
 
 static light_module_t this_module = {
-        .init = &light_core_init
+        .init = &light_core_init,
+        .name = LIGHT_MODULE_NAME_LIGHT_CORE,
+        .type = LIGHT_MODULE_BASE,
+        .deps_count = 0,
+        .decl_count = 0
 };
 
 static light_log_context_t logger = {
@@ -31,9 +35,13 @@ uint8_t _light_module_count;
 
 LIGHT_MODULE_IMPLEMENT(this_module);
 
+// Light Framework external entry point:
+// - populates module graph from module table and config info
+// - loads and initializes modules, performing dependency injection to provide
+//      modules with the modules they require in correct order
 void light_init()
 {
-        
+        light_app_activate_modules(&this_app);
 }
 
 light_app_context_t *light_primary_app_context_get()
@@ -64,11 +72,11 @@ uint8_t light_component_type_register(light_component_t *ct)
 }
 
 // light_component_type_get:
-// search component table for the specified ID
-light_component_t *light_component_type_get(uint8_t id)
+// search component table for the specified component name
+light_component_t *light_component_type_get(char *name)
 {
         for(uint8_t i = 0; i < light_component_type_count; i++) {
-                if(light_component_type_table[i]->id == id)
+                if(strcmp(light_component_type_table[i]->name, name))
                         return light_component_type_table[i];
         }
         return NULL;
@@ -85,6 +93,7 @@ uint8_t light_module_register(light_app_context_t *app, light_module_t *mod)
 
 uint8_t light_app_activate_modules(light_app_context_t *app)
 {
+        light_log(LIGHT_TRACE, "light_app_activate_modules: enter");
         for(uint8_t i = 0; i < app->module_count; i++) {
                 light_module_activate(app, app->module[i]);
         }
@@ -94,17 +103,36 @@ uint8_t light_app_activate_modules(light_app_context_t *app)
 
 uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod)
 {
+        light_log(LIGHT_TRACE, "light_module_activate: %s\n", mod->name);
         if(mod->active) return LIGHT_OK;
 
-        mod->active = true;
         for(uint8_t i = 0; i < mod->deps_count; i++) {
-                light_module_activate(app, mod->depends_on[i]);
+                light_module_t *dep = light_module_reference_resolve(mod->depends_on[i]);
+                light_module_activate(app, dep);
         }
+
+        mod->active = true;
 
         // call module init handler, after dependencies are activated
         mod->init(app);
 
+        light_log(LIGHT_DEBUG, "Module Activated: %s\n", mod->name);
+
         return LIGHT_OK;
+}
+
+light_module_t *light_module_reference_resolve(const char *ref)
+{
+        light_log(LIGHT_TRACE, "light_module_reference_resolve: %s\n", ref);
+        for(uint8_t i = 0; i < _light_module_count; i++) {
+                if(strcmp(_light_modules[i]->name, ref)) {
+                        return _light_modules[i];
+                }
+        }
+        
+        light_log(LIGHT_WARN, "Failed to resolve module reference: %s\n", ref);
+
+        return NULL;
 }
 
 void light_core_do_log(const char *msg)
