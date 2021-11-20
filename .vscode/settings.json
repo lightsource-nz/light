@@ -10,6 +10,7 @@
         "tusb_option.h": "c",
         "display_ic.h": "c",
         "display_panel.h": "c",
-        "light_board.h": "c"
+        "light_board.h": "c",
+        "display_gui.h": "c"
     }
 }

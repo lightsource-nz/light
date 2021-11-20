@@ -14,13 +14,12 @@ add_library(mod_display_fonts INTERFACE)
 
 target_sources(
     mod_display_fonts INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}/src/module.c
     ${CMAKE_CURRENT_LIST_DIR}/src/font8.c
     ${CMAKE_CURRENT_LIST_DIR}/src/font12.c
-    ${CMAKE_CURRENT_LIST_DIR}/src/font12CN.c
     ${CMAKE_CURRENT_LIST_DIR}/src/font16.c
     ${CMAKE_CURRENT_LIST_DIR}/src/font20.c
     ${CMAKE_CURRENT_LIST_DIR}/src/font24.c
-    ${CMAKE_CURRENT_LIST_DIR}/src/font24CN.c
 )
 
 target_include_directories(

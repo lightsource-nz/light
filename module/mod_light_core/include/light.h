@@ -51,9 +51,11 @@ typedef struct _light_module {
 } light_module_t;
 
 typedef struct _light_app_context {
+    uint8_t const *name;
     uint8_t module_count;
     light_module_t *module[LIGHT_ACTIVE_MODULES_MAX];
-    uint8_t const *name;
+    const char *depends_on[LIGHT_MODULE_DEPS_MAX];
+    const uint8_t deps_count;
 } light_app_context_t;
 
 
