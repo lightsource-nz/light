@@ -61,9 +61,7 @@ typedef struct _light_app_context {
 
 #include <light/log.h>
 
-void light_init();
-
-light_app_context_t *light_primary_app_context_get();
+void light_init(light_app_context_t *app);
 
 uint8_t light_app_activate_modules(light_app_context_t *app);
 

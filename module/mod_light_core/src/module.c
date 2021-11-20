@@ -1,4 +1,5 @@
 #include <light.h>
+#include <light_board.h>
 #include <light/module.h>
 #include <light_core.h>
 
@@ -15,8 +16,6 @@ static uint8_t light_component_type_count;
 static light_component_t component_type_mainboard = {
         .name = LIGHT_COMPONENT_TYPE_NAME_MAINBOARD
 };
-
-static light_app_context_t this_app;
 
 static light_module_t this_module = {
         .init = &light_core_init,
@@ -36,17 +35,18 @@ uint8_t _light_module_count;
 LIGHT_MODULE_IMPLEMENT(this_module);
 
 // Light Framework external entry point:
-// - populates module graph from module table and config info
+// - populates module graph from module table and supplied config info
 // - loads and initializes modules, performing dependency injection to provide
 //      modules with the modules they require in correct order
-void light_init()
+void light_init(light_app_context_t *app)
 {
-        light_app_activate_modules(&this_app);
-}
-
-light_app_context_t *light_primary_app_context_get()
-{
-        return &this_app;
+        uint8_t res;
+        if((res = light_board_init()) != LIGHT_OK) {
+                // TODO handle boot failure somehow
+                _exit(res);
+        }
+        light_log(LIGHT_INFO, "light_init: starting application [%s]\n", app->name);
+        light_app_activate_modules(app);
 }
 
 light_module_t *light_core_module_get()
@@ -108,6 +108,10 @@ uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod)
 
         for(uint8_t i = 0; i < mod->deps_count; i++) {
                 light_module_t *dep = light_module_reference_resolve(mod->depends_on[i]);
+                if(dep == NULL) {
+                        light_log(LIGHT_ERROR, "error: failed to resolve module reference \"%s\"", mod->depends_on[i]);
+                        _exit(LIGHT_INVALID_ARG);
+                }
                 light_module_activate(app, dep);
         }
 
@@ -116,7 +120,7 @@ uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod)
         // call module init handler, after dependencies are activated
         mod->init(app);
 
-        light_log(LIGHT_DEBUG, "Module Activated: %s\n", mod->name);
+        light_log(LIGHT_DEBUG, "module activated: %s\n", mod->name);
 
         return LIGHT_OK;
 }
@@ -129,9 +133,6 @@ light_module_t *light_module_reference_resolve(const char *ref)
                         return _light_modules[i];
                 }
         }
-        
-        light_log(LIGHT_WARN, "Failed to resolve module reference: %s\n", ref);
-
         return NULL;
 }
 

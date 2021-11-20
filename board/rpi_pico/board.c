@@ -26,7 +26,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 ******************************************************************************/
-#include "light_board.h"
+#include <light.h>
+#include <light_board.h>
 
 #include <hardware/spi.h>
 #include <hardware/i2c.h>
@@ -162,7 +163,7 @@ function:	Module Initialize, the library and initialize the pins, SPI protocol
 parameter:
 Info:
 ******************************************************************************/
-uint8_t light_display_board_init(void)
+uint8_t light_board_init(void)
 {
     stdio_init_all();
     
@@ -203,7 +204,7 @@ uint8_t light_display_board_init(void)
     gpio_pull_up(EPD_SCL_PIN);
     
     printf("light_display_board_init() OK \r\n");
-    return 0;
+    return LIGHT_OK;
 }
 
 void board_set_pwm(uint8_t Value){
@@ -229,5 +230,5 @@ void light_display_board_exit(void)
 
 void _light_board_log_handler(const char *msg)
 {
-    printf("[light_core]: %s", msg);
+    printf("[light]: %s", msg);
 }
