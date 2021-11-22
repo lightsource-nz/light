@@ -14,8 +14,9 @@ target_include_directories(
 target_sources(
     mod_light_core INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/module.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/component.c
     ${CMAKE_CURRENT_LIST_DIR}/src/log.c
-    )
+)
 
 target_link_libraries(
     mod_light_core INTERFACE

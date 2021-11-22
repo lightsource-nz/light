@@ -15,9 +15,6 @@
 #define LIGHT_INVALID_ARG                       -1
 #define LIGHT_ALLOC_LIMIT_REACHED               1
 
-#define LIGHT_COMPONENT_TYPE_ID_MAINBOARD           0
-#define LIGHT_COMPONENT_TYPE_NAME_MAINBOARD         "mainboard"
-
 // data structure constants
 #define LIGHT_MODULE_DEPS_MAX               32
 #define LIGHT_MODULE_DECL_MAX               32
@@ -64,10 +61,6 @@ typedef struct _light_app_context {
 void light_init(light_app_context_t *app);
 
 uint8_t light_app_activate_modules(light_app_context_t *app);
-
-uint8_t light_component_type_register(light_component_t *ct);
-
-light_component_t *light_component_type_get(char *name);
 
 uint8_t light_module_register(light_app_context_t *app, light_module_t *mod);
 

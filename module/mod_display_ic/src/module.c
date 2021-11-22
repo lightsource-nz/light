@@ -1,8 +1,9 @@
 #include <light.h>
 #include <light/module.h>
+#include <light/component.h>
 
 #include <light_core.h>
-#include <light/display_ic.h>
+#include <light/mod_display_ic.h>
 
 #include <stddef.h>
 

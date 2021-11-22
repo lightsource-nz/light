@@ -1,17 +1,17 @@
 #include <light.h>
 #include <light_board.h>
 #include <light/module.h>
+#include <light/component.h>
 #include <light_core.h>
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
 void light_core_init(light_app_context_t *app);
 void light_core_do_log(const char *msg);
-
-static light_component_t *light_component_type_table[LIGHT_COMPONENT_TYPES_MAX];
-static uint8_t light_component_type_count;
 
 static light_component_t component_type_mainboard = {
         .name = LIGHT_COMPONENT_TYPE_NAME_MAINBOARD
@@ -57,29 +57,9 @@ light_module_t *light_core_module_get()
 void light_core_init(light_app_context_t *app)
 {
         light_log(LIGHT_DEBUG, "light_core module loaded");
-        light_component_type_count = 0;
+        light_component_init();
         light_component_type_register(&component_type_mainboard);
 
-}
-
-uint8_t light_component_type_register(light_component_t *ct)
-{
-        if(light_component_type_count < LIGHT_COMPONENT_TYPES_MAX) {
-                light_component_type_table[light_component_type_count++] = ct;
-                return LIGHT_OK;
-        }
-        return LIGHT_ALLOC_LIMIT_REACHED;
-}
-
-// light_component_type_get:
-// search component table for the specified component name
-light_component_t *light_component_type_get(char *name)
-{
-        for(uint8_t i = 0; i < light_component_type_count; i++) {
-                if(strcmp(light_component_type_table[i]->name, name))
-                        return light_component_type_table[i];
-        }
-        return NULL;
 }
 
 uint8_t light_module_register(light_app_context_t *app, light_module_t *mod)
@@ -110,7 +90,7 @@ uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod)
                 light_module_t *dep = light_module_reference_resolve(mod->depends_on[i]);
                 if(dep == NULL) {
                         light_log(LIGHT_ERROR, "error: failed to resolve module reference \"%s\"", mod->depends_on[i]);
-                        _exit(LIGHT_INVALID_ARG);
+                        _exit((int)LIGHT_INVALID_ARG);
                 }
                 light_module_activate(app, dep);
         }
