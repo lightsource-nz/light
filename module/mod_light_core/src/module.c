@@ -13,7 +13,7 @@
 void light_core_init(light_app_context_t *app);
 void light_core_do_log(const char *msg);
 
-static light_component_t component_type_mainboard = {
+static light_component_type_t component_type_mainboard = {
         .name = LIGHT_COMPONENT_TYPE_NAME_MAINBOARD
 };
 

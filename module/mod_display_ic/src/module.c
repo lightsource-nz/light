@@ -7,7 +7,7 @@
 
 #include <stddef.h>
 
-static light_component_t component_type_display_ic = {
+static light_component_type_t component_type_display_ic = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_IC
 };
 

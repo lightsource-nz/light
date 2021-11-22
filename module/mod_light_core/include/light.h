@@ -22,11 +22,6 @@
 
 typedef struct _light_app_context light_app_context_t;
 
-typedef struct _light_component {
-    uint8_t const *name;
-    uint8_t (*init)(light_app_context_t *);
-} light_component_t;
-
 typedef void (light_module_init_func_t)(light_app_context_t *app);
 
 typedef enum _light_module_type {
