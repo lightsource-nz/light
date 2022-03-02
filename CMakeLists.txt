@@ -12,7 +12,7 @@ MACRO(SUBDIRLIST result curdir)
   SET(${result} ${dirlist})
 ENDMACRO()
 
-project(light C ASM)
+project(light C CXX ASM)
 
 if(NOT DEFINED LIGHT_BOARD_ID)
     message(FATAL_ERROR "LIGHT_BOARD_ID must be defined")
@@ -26,6 +26,7 @@ add_subdirectory(board/${LIGHT_BOARD_ID})
 SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_LIST_DIR}/module)
 FOREACH(subdir ${SUBDIRS})
   ADD_SUBDIRECTORY(module/${subdir})
+  target_link_libraries(light INTERFACE ${subdir})
 ENDFOREACH()
 
 target_link_libraries(light INTERFACE light_bsp)

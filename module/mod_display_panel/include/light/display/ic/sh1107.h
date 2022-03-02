@@ -20,7 +20,7 @@
 #ifndef __DRIVER_SH1107_H
 #define __DRIVER_SH1107_H		
 
-#include "config_display_oled.h"
+#include "config_display_panel.h"
 
 /********************************************************************************
 function:	

@@ -44,7 +44,7 @@ target_include_directories(
     )
     
 target_sources(
-        display_fonts_demo PUBLIC
+        display_fonts_demo PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/demo/main.c
     )
     

@@ -1,6 +1,6 @@
 {
     "cmake.configureSettings": {
-        "PICO_SDK_PATH": "../../pico-sdk-midi-driver",
+        "PICO_SDK_PATH": "D:/workspaces/embedded/projects/pico-sdk",
         "LIGHT_BOARD_ID": "rpi_pico"
     },
     "cmake.generator": "NMake Makefiles",
@@ -12,5 +12,6 @@
         "display_panel.h": "c",
         "light_board.h": "c",
         "display_gui.h": "c"
-    }
+    },
+    "cmake.configureOnOpen": true
 }
