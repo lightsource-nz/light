@@ -11,7 +11,10 @@
         "display_ic.h": "c",
         "display_panel.h": "c",
         "light_board.h": "c",
-        "display_gui.h": "c"
+        "display_gui.h": "c",
+        "light.h": "c",
+        "compare": "c",
+        "type_traits": "c"
     },
     "cmake.configureOnOpen": true
 }

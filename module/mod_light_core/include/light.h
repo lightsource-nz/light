@@ -8,20 +8,31 @@
 
 #define LIGHT_ATTR_PREMAIN                      __attribute__((constructor))
 
+#define LIGHT_STATUS_MAXVALUE                   UINT8_MAX
+
 // zero return value means success,
-// less-than-zero means validation failure,
-// greater-than-zero means internal error
+// greater-than-zero means internal error or validation failure
 #define LIGHT_OK                                0
-#define LIGHT_INVALID_ARG                       -1
 #define LIGHT_ALLOC_LIMIT_REACHED               1
+#define LIGHT_ALLOC_FAILURE                     2
+#define LIGHT_INVALID_ARG                       3
+
+#define LIGHT_OK_STRING                     "OK"
+#define LIGHT_INVALID_ARG_STRING            "Invalid argument"
+#define LIGHT_ALLOC_LIMIT_REACHED_STRING    "Static memory limit reached"
+#define LIGHT_ALLOC_FAILURE_STRING          "Dynamic memory allocation failed"
+#define LIGHT_STATUS_UNDEF_STRING           "Undefined status code"
 
 // data structure constants
 #define LIGHT_MODULE_DEPS_MAX               32
 #define LIGHT_MODULE_DECL_MAX               32
 #define LIGHT_MODULE_IMPL_MAX               32
 
-typedef struct _light_app_context light_app_context_t;
+#define LIGHT_DESCRIPTOR_NAME_MAX_LENGTH    32
 
+typedef struct _light_app_context light_app_context_t;
+typedef struct _light_module light_module_t;
+ 
 typedef void (light_module_init_func_t)(light_app_context_t *app);
 
 typedef enum _light_module_type {
@@ -29,7 +40,6 @@ typedef enum _light_module_type {
     LIGHT_MODULE_ABSTRACT = 1
 } light_module_type_t;
 
-typedef struct _light_module light_module_t;
 
 typedef struct _light_module {
     uint8_t active;
@@ -50,6 +60,26 @@ typedef struct _light_app_context {
     const uint8_t deps_count;
 } light_app_context_t;
 
+static inline const uint8_t *light_status_code_to_message(const uint8_t code)
+{
+    switch (code)
+    {
+    case LIGHT_OK:
+        return LIGHT_OK_STRING;
+        
+    case LIGHT_INVALID_ARG:
+        return LIGHT_INVALID_ARG_STRING;
+        
+    case LIGHT_ALLOC_LIMIT_REACHED:
+        return LIGHT_ALLOC_LIMIT_REACHED_STRING;
+        
+    case LIGHT_ALLOC_FAILURE:
+        return LIGHT_ALLOC_FAILURE_STRING;
+    
+    default:
+        return LIGHT_STATUS_UNDEF_STRING;
+    }
+}
 
 #include <light/log.h>
 

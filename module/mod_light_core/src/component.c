@@ -18,14 +18,20 @@ uint8_t light_component_init()
 // light_component_type_register:
 // add component type to table, passing the new type to all parent types' init functions.
 // init() calls are made in ascending order up the type hierarchy
-uint8_t light_component_type_register(light_component_type_t *ct)
+uint8_t light_component_type_register(light_component_type_t *type)
 {
         if(light_component_type_count < LIGHT_COMPONENT_TYPES_MAX) {
-                light_component_type_t *parent;
-                light_component_type_table[light_component_type_count++] = ct;
-                ct->init(ct);
-                while(parent = ct->parent) {
-                        parent->init(ct);
+                const light_component_type_t *parents[LIGHT_COMPONENT_TREE_HEIGHT_MAX];
+                uint8_t height;
+
+                light_component_type_table[light_component_type_count++] = type;
+                const light_component_type_t *next = type;
+                for(height= 0; height < LIGHT_COMPONENT_TREE_HEIGHT_MAX; height++) {
+                        parents[height] = next;
+                }
+
+                while(height >= 0) {
+                        parents[height]->init(type);
                 }
                 return LIGHT_OK;
         }
@@ -48,18 +54,28 @@ light_component_type_t *light_component_type_get(uint8_t const *name)
 // create() calls are made in ascending order up the type hierarchy
 uint8_t light_component_instance_create(light_component_t *inst)
 {
-        if(light_component_count < LIGHT_COMPONENTS_MAX) {
-                light_component_type_t *type;
-                light_component_table[light_component_count++] = inst;
-                type = inst->type;
+        if(light_component_count >= LIGHT_COMPONENTS_MAX)
+                return LIGHT_ALLOC_LIMIT_REACHED;
 
-                type->create(inst);
-                while(type = type->parent) {
-                        type->create(inst);
-                }
-                return LIGHT_OK;
+        
+
+        const light_component_type_t *type[LIGHT_COMPONENT_TREE_HEIGHT_MAX];
+        const light_component_type_t *next = inst->type;
+        uint8_t height;
+
+        light_component_table[light_component_count++] = inst;
+        
+        for(height = 0; height < LIGHT_COMPONENT_TREE_HEIGHT_MAX; height++) {
+                type[height] = next;
+                next = next->parent;
         }
-        return LIGHT_ALLOC_LIMIT_REACHED;
+
+        while (height >= 0) {
+                type[height]->create(inst);
+                height--;
+        }
+
+        return LIGHT_OK;
 
 }
 

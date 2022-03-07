@@ -12,6 +12,7 @@ add_library(mod_display_panel INTERFACE)
 target_sources(
     mod_display_panel INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/module.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/panel.c
     )
 
 target_include_directories(

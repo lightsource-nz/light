@@ -1,5 +1,6 @@
 ﻿#include <light.h>
 #include <light_core.h>
+#include <light/component.h>
 #include <light/mod_display_panel.h>
 
 static light_app_context_t this_app = {
