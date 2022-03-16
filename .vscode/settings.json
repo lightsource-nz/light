@@ -14,7 +14,8 @@
         "display_gui.h": "c",
         "light.h": "c",
         "compare": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "mod_display_gui.h": "c"
     },
     "cmake.configureOnOpen": true
 }

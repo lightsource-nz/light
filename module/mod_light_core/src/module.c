@@ -4,6 +4,7 @@
 #include <light/component.h>
 #include <light_core.h>
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -114,6 +115,17 @@ light_module_t *light_module_reference_resolve(const char *ref)
                 }
         }
         return NULL;
+}
+
+uint8_t light_descriptor_write(uint8_t *buffer, uint8_t *name, size_t field_length)
+{
+        snprintf(buffer, field_length, "%s", name);
+
+}
+
+uint8_t light_descriptor_write_name(uint8_t *buffer, uint8_t *name)
+{
+        light_descriptor_write(buffer, name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH);
 }
 
 void light_core_do_log(const char *msg)

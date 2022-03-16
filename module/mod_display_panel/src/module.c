@@ -3,8 +3,8 @@
 #include <light/component.h>
 
 #include <light_core.h>
-#include <light/mod_display_ic.h>
-#include <light/mod_display_panel.h>
+#include <mod_display_ic.h>
+#include <mod_display_panel.h>
 
 #include <component/panel.h>
 
@@ -14,6 +14,7 @@
 light_component_type_t component_type_display_panel = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL,
         .parent = NULL,
+        .pin_count = 0,
         .init = light_component_type_display_panel_init,
         .create = light_component_type_display_panel_create
 };
@@ -21,6 +22,7 @@ light_component_type_t component_type_display_panel = {
 light_component_type_t component_type_display_panel_oled1p3in = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN,
         .parent = &component_type_display_panel,
+        .pin_count = 0,
         .init = light_component_type_display_panel_oled1p3in_init,
         .create = light_component_type_display_panel_oled1p3in_create
 };
@@ -28,6 +30,11 @@ light_component_type_t component_type_display_panel_oled1p3in = {
 light_component_type_t component_type_display_panel_oled1p3in_i2c = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_I2C,
         .parent = &component_type_display_panel_oled1p3in,
+        .pin_count = 2,
+        .pin = {
+                LIGHT_PANEL_PIN_NAME_SCL,
+                LIGHT_PANEL_PIN_NAME_SDA
+        },
         .init = light_component_type_display_panel_oled1p3in_i2c_init,
         .create = light_component_type_display_panel_oled1p3in_i2c_create
 };
@@ -35,6 +42,14 @@ light_component_type_t component_type_display_panel_oled1p3in_i2c = {
 light_component_type_t component_type_display_panel_oled1p3in_spi = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_SPI,
         .parent = &component_type_display_panel_oled1p3in,
+        .pin_count = 5,
+        .pin = {
+                LIGHT_PANEL_PIN_NAME_SCL,
+                LIGHT_PANEL_PIN_NAME_SDA,
+                LIGHT_PANEL_PIN_NAME_RESET,
+                LIGHT_PANEL_PIN_NAME_DC,
+                LIGHT_PANEL_PIN_NAME_CS
+        },
         .init = light_component_type_display_panel_oled1p3in_i2c_init,
         .create = light_component_type_display_panel_oled1p3in_i2c_create
 };

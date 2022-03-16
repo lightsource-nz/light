@@ -3,12 +3,12 @@
 #include <light/component.h>
 
 #include <light_core.h>
-#include <light/mod_display_ic.h>
-#include <light/mod_display_panel.h>
+#include <mod_display_ic.h>
+#include <mod_display_panel.h>
 
 #include <stddef.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include <stdio.h>
 
 #include <component/panel.h>
@@ -74,13 +74,29 @@ uint8_t light_component_type_display_panel_oled1p3in_i2c_init(light_component_ty
 uint8_t light_component_type_display_panel_oled1p3in_i2c_create(light_component_t *cmp)
 {
         light_component_t *driver = malloc(sizeof(light_component_t));
-        uint8_t *name = calloc(sizeof(uint8_t), LIGHT_DESCRIPTOR_NAME_MAX_LENGTH);
-        snprintf(name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.driver", cmp->name);
-        driver->name = name;
-        driver->type = &component_type_display_panel_oled1p3in_i2c;
-        
-        uint8_t status;
 
+        // ^ TODO null check this pointer to make sure malloc was successful
+
+
+        if(strlen(cmp->name) > (LIGHT_DESCRIPTOR_NAME_MAX_LENGTH - 7)) {
+                return LIGHT_ALLOC_LIMIT_REACHED;
+        }
+        snprintf(driver->name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.driver", cmp->name);
+
+        driver->type = &component_type_display_ic_sh1107_i2c;
+        
+
+        light_component_pindef_t *next_pin = light_component_instance_get_pin_by_name(cmp, LIGHT_PANEL_PIN_NAME_SCL);
+
+        light_descriptor_write_name(driver->pin->name, LIGHT_DISPLAY_IC_PIN_NAME_SCL);
+        driver->pin->pin = next_pin->pin;
+
+        next_pin = light_component_instance_get_pin_by_name(cmp, LIGHT_PANEL_PIN_NAME_SDA);
+
+        light_descriptor_write_name(driver->pin->name, LIGHT_DISPLAY_IC_PIN_NAME_SDA);
+        driver->pin->pin = next_pin->pin;
+
+        uint8_t status;
         if(status = light_component_instance_create(driver)) {
                 light_log(LIGHT_WARN, "failed to create component for display driver");
                 return status;
@@ -114,7 +130,7 @@ uint8_t light_component_type_display_panel_oled1p3in_spi_create(light_component_
         light_component_t *driver = malloc(sizeof(light_component_t));
         uint8_t *name = calloc(sizeof(uint8_t), LIGHT_DESCRIPTOR_NAME_MAX_LENGTH);
         snprintf(name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.driver", cmp->name);
-        driver->name = name;
+        light_descriptor_write_name(driver->name, name);
         driver->type = &component_type_display_panel_oled1p3in_spi;
         
         uint8_t status;

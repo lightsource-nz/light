@@ -3,6 +3,7 @@
 #define __LIGHT_H
 
 #include <stdint.h>
+#include <stddef.h>     // required for size_t
 
 #include "conf_light.h"
 
@@ -90,6 +91,10 @@ uint8_t light_app_activate_modules(light_app_context_t *app);
 uint8_t light_module_register(light_app_context_t *app, light_module_t *mod);
 
 uint8_t light_module_activate(light_app_context_t *app, light_module_t *mod);
+
+uint8_t light_descriptor_write(uint8_t *buffer, uint8_t *name, size_t field_length);
+
+uint8_t light_descriptor_write_name(uint8_t *buffer, uint8_t *name);
 
 // linkage point for BSP logging function
 extern void _light_board_log_handler(const char *msg);

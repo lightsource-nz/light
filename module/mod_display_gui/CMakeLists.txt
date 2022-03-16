@@ -12,10 +12,13 @@ target_include_directories(
 target_sources(
     mod_display_gui INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/paint.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/module.c
     )
 
 target_link_libraries(
     mod_display_gui INTERFACE
+    mod_display_panel
+    mod_display_ic
     mod_display_fonts
     )
 
