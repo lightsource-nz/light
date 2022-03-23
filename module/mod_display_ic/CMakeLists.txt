@@ -22,6 +22,7 @@ target_include_directories(
 target_link_libraries(
     mod_display_ic INTERFACE
     mod_light_core
+    light_bsp
     pico_stdlib
     )
 

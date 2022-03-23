@@ -19,7 +19,7 @@ typedef struct {
     uint16_t HeightByte;
     uint16_t Scale;
 } gui_render_context_t;
-extern gui_render_context_t paint_ctx;
+extern gui_render_context_t *paint_ctx;
 
 /**
  * Display rotate
@@ -116,35 +116,35 @@ typedef struct {
 extern PAINT_TIME sPaint_time;
 
 //init and Clear
-void Paint_NewImage(gui_render_context_t *paint_ctx, uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color);
-void Paint_SelectImage(gui_render_context_t *paint_ctx, uint8_t *image);
-void Paint_SetRotate(gui_render_context_t *paint_ctx, uint16_t Rotate);
-void Paint_SetMirroring(gui_render_context_t *paint_ctx, uint8_t mirror);
-void Paint_SetPixel(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, uint16_t Color);
-void Paint_SetScale(gui_render_context_t *paint_ctx, uint8_t scale);
+void Paint_NewImage(uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color);
+void Paint_SelectImage(uint8_t *image);
+void Paint_SetRotate(uint16_t Rotate);
+void Paint_SetMirroring(uint8_t mirror);
+void Paint_SetPixel(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color);
+void Paint_SetScale(uint8_t scale);
 
-void Paint_Clear(gui_render_context_t *paint_ctx, uint16_t Color);
-void Paint_ClearWindows(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color);
+void Paint_Clear(uint16_t Color);
+void Paint_ClearWindow(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color);
 
 //Drawing
-void Paint_DrawPoint(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, uint16_t Color, DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_FillWay);
-void Paint_DrawLine(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style);
-void Paint_DrawRectangle(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
-void Paint_DrawCircle(gui_render_context_t *paint_ctx, uint16_t X_Center, uint16_t Y_Center, uint16_t Radius, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
+void Paint_DrawPoint(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color, DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_FillWay);
+void Paint_DrawLine(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style);
+void Paint_DrawRectangle(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
+void Paint_DrawCircle(uint16_t X_Center, uint16_t Y_Center, uint16_t Radius, uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill);
 
 //Display string
-void Paint_DrawChar(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, const char Acsii_Char, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawString_EN(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, const char * pString, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawNum(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, double Nummber, sFONT* Font, uint16_t Digit,uint16_t Color_Foreground, uint16_t Color_Background);
-void Paint_DrawTime(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
+void Paint_DrawChar(uint16_t Xstart, uint16_t Ystart, const char Acsii_Char, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
+void Paint_DrawString_EN(uint16_t Xstart, uint16_t Ystart, const char * pString, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
+void Paint_DrawNum(uint16_t Xpoint, uint16_t Ypoint, double Nummber, sFONT* Font, uint16_t Digit,uint16_t Color_Foreground, uint16_t Color_Background);
+void Paint_DrawTime(uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background);
 
 //pic
-void Paint_DrawBitMap(gui_render_context_t *paint_ctx, const unsigned char* image_buffer);
-void Paint_DrawBitMap_Block(gui_render_context_t *paint_ctx, const unsigned char* image_buffer, uint8_t Region);
+void Paint_DrawBitMap(const unsigned char* image_buffer);
+void Paint_DrawBitMap_Block(const unsigned char* image_buffer, uint8_t Region);
 
-void Paint_DrawImage(gui_render_context_t *paint_ctx, const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) ;
-void Paint_DrawImage1(gui_render_context_t *paint_ctx, const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image);
-void Paint_BmpWindows(gui_render_context_t *paint_ctx, unsigned char x,unsigned char y,const unsigned char *pBmp,\
+void Paint_DrawImage(const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) ;
+void Paint_DrawImage1(const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image);
+void Paint_BmpWindows(unsigned char x,unsigned char y,const unsigned char *pBmp,\
 					unsigned char chWidth,unsigned char chHeight);
 
 

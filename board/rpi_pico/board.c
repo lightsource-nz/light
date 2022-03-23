@@ -86,18 +86,18 @@ void board_spi_write_bytes(uint8_t pData[], uint32_t Len)
  * I2C
 **/
 
-void board_i2c_write_byte(uint8_t addr, uint8_t reg, uint8_t Value)
+void board_i2c_write_byte(uint8_t device_id, uint8_t addr, uint8_t reg, uint8_t Value)
 {
     uint8_t data[2] = {reg, Value};
     i2c_write_blocking(I2C_PORT, addr, data, 2, false);
 }
 
-void board_i2c_write_bytes(uint8_t addr, uint8_t *pData, uint32_t Len)
+void board_i2c_write_bytes(uint8_t device_id, uint8_t addr, uint8_t *pData, uint32_t Len)
 {
     i2c_write_blocking(I2C_PORT, addr, pData, Len, false);
 }
 
-uint8_t board_i2c_read_byte(uint8_t addr, uint8_t reg)
+uint8_t board_i2c_read_byte(uint8_t device_id, uint8_t addr, uint8_t reg)
 {
     uint8_t buf;
     i2c_write_blocking(I2C_PORT,addr,&reg,1,true);
@@ -158,11 +158,7 @@ void board_gpio_init(void)
     board_gpio_mode(EPD_DC_PIN, 0);
     board_gpio_mode(EPD_BL_PIN, 1);
 }
-/******************************************************************************
-function:	Module Initialize, the library and initialize the pins, SPI protocol
-parameter:
-Info:
-******************************************************************************/
+
 uint8_t light_board_init(void)
 {
     stdio_init_all();
@@ -218,11 +214,6 @@ void board_set_pwm(uint8_t Value){
     
 }
 
-/******************************************************************************
-function:	Module exits, closes SPI and BCM2835 library
-parameter:
-Info:
-******************************************************************************/
 void light_display_board_exit(void)
 {
 

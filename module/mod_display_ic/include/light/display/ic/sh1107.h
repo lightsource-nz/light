@@ -20,7 +20,7 @@
 #ifndef __DRIVER_SH1107_H
 #define __DRIVER_SH1107_H		
 
-#include "config_display_oled.h"
+#include "light_board.h"
 
 /********************************************************************************
 function:	
@@ -40,6 +40,8 @@ function:
 
 #define OLED_DC_0       DEV_Digital_Write(EPD_DC_PIN,0)
 #define OLED_DC_1       DEV_Digital_Write(EPD_DC_PIN,1)
+
+
 
 
 void display_sh1107_init(uint8_t id);

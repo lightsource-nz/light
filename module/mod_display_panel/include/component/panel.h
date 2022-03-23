@@ -35,3 +35,5 @@ uint8_t light_component_type_display_panel_oled1p3in_spi_init(light_component_ty
 uint8_t light_component_type_display_panel_oled1p3in_spi_create(light_component_t *cmp);
 
 void light_component_type_display_panel_oled1p3in_spi_release(light_component_t *cmp);
+
+uint8_t light_component_type_display_panel_instance_driver_ic_ref_set(light_component_t *cmp, uint8_t *ref);

@@ -7,6 +7,7 @@
 #define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN       "display.panel.oled1p3in"
 #define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_I2C   "display.panel.oled1p3in.i2c"
 #define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_SPI   "display.panel.oled1p3in.spi"
+#define LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC        "display."
 
 // i2c and spi interfaces share clock and data pin names
 #define LIGHT_PANEL_PIN_NAME_SCL                                   "pin:SCL"

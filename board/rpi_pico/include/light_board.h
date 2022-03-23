@@ -28,10 +28,14 @@ void board_spi_write_bytes(uint8_t *pData, uint32_t Len);
 void board_sleep_ms(uint32_t xms);
 void board_sleep_us(uint32_t xus);
 
+uint8_t board_i2c_device_id_next();
+uint8_t board_i2c_device_id_max();
+uint8_t board_i2c_device_init(uint8_t device_id, uint8_t pin_scl, uint8_t pin_sda);
+uint8_t board_i2c_device_deinit(uint8_t device_id);
 
-void board_i2c_write_byte(uint8_t addr, uint8_t reg, uint8_t Value);
-void board_i2c_write_bytes(uint8_t addr, uint8_t *pData, uint32_t Len);
-uint8_t board_i2c_read_byte(uint8_t addr, uint8_t reg);
+void board_i2c_write_byte(uint8_t device_id, uint8_t addr, uint8_t reg, uint8_t Value);
+void board_i2c_write_bytes(uint8_t device_id, uint8_t addr, uint8_t *pData, uint32_t Len);
+uint8_t board_i2c_read_byte(uint8_t device_id, uint8_t addr, uint8_t reg);
 
 void board_pwm_set(uint8_t Value);
 

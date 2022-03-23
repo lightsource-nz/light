@@ -15,6 +15,13 @@ light_component_type_t component_type_display_panel = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL,
         .parent = NULL,
         .pin_count = 0,
+        .ref_count = 1,
+        .ref = {
+                {
+                        .name = LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC,
+                        
+                }
+        },
         .init = light_component_type_display_panel_init,
         .create = light_component_type_display_panel_create
 };

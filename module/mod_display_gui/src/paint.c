@@ -15,7 +15,7 @@ parameter:
     Height  :   The height of the picture
     Color   :   Whether the picture is inverted
 ******************************************************************************/
-void Paint_NewImage(gui_render_context_t *paint_ctx, uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color)
+void Paint_NewImage(uint8_t *image, uint16_t Width, uint16_t Height, uint16_t Rotate, uint16_t Color)
 {
     paint_ctx->Image = NULL;
     paint_ctx->Image = image;
@@ -47,7 +47,7 @@ function: Select Image
 parameter:
     image : Pointer to the image cache
 ******************************************************************************/
-void Paint_SelectImage(gui_render_context_t *paint_ctx, uint8_t *image)
+void Paint_SelectImage(uint8_t *image)
 {
     paint_ctx->Image = image;
 }
@@ -57,7 +57,7 @@ function: Select Image Rotate
 parameter:
     Rotate : 0,90,180,270
 ******************************************************************************/
-void Paint_SetRotate(gui_render_context_t *paint_ctx, uint16_t Rotate)
+void Paint_SetRotate(uint16_t Rotate)
 {
     if(Rotate == ROTATE_0 || Rotate == ROTATE_90 || Rotate == ROTATE_180 || Rotate == ROTATE_270) {
         light_log(LIGHT_DEBUG, "Set image Rotate %d\n", Rotate);
@@ -67,7 +67,7 @@ void Paint_SetRotate(gui_render_context_t *paint_ctx, uint16_t Rotate)
     }
 }
 
-void Paint_SetScale(gui_render_context_t *paint_ctx, uint8_t scale)
+void Paint_SetScale(uint8_t scale)
 {
     if(scale == 2){
         paint_ctx->Scale = scale;
@@ -91,7 +91,7 @@ function:	Select Image mirror
 parameter:
     mirror   :Not mirror,Horizontal mirror,Vertical mirror,Origin mirror
 ******************************************************************************/
-void Paint_SetMirroring(gui_render_context_t *paint_ctx, uint8_t mirror)
+void Paint_SetMirroring(uint8_t mirror)
 {
     if(mirror == MIRROR_NONE || mirror == MIRROR_HORIZONTAL || 
         mirror == MIRROR_VERTICAL || mirror == MIRROR_ORIGIN) {
@@ -110,7 +110,7 @@ parameter:
     Ypoint : At point Y
     Color  : Painted colors
 ******************************************************************************/
-void Paint_SetPixel(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, uint16_t Color)
+void Paint_SetPixel(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color)
 {
     if(Xpoint > paint_ctx->Width || Ypoint > paint_ctx->Height){
         light_log(LIGHT_DEBUG, "%s: Exceeding display boundaries", __func__);
@@ -194,7 +194,7 @@ function: Clear the color of the picture
 parameter:
     Color : Painted colors
 ******************************************************************************/
-void Paint_Clear(gui_render_context_t *paint_ctx, uint16_t Color)
+void Paint_Clear(uint16_t Color)
 {
     if(paint_ctx->Scale == 2 || paint_ctx->Scale == 4) {
         for (uint16_t Y = 0; Y < paint_ctx->HeightByte; Y++) {
@@ -231,12 +231,12 @@ parameter:
     Yend   : y end point
     Color  : Painted colors
 ******************************************************************************/
-void Paint_ClearWindows(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color)
+void Paint_ClearWindow(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend, uint16_t Color)
 {
     uint16_t X, Y;
     for (Y = Ystart; Y < Yend; Y++) {
         for (X = Xstart; X < Xend; X++) {//8 pixel =  1 byte
-            Paint_SetPixel(paint_ctx, X, Y, Color);
+            Paint_SetPixel(X, Y, Color);
         }
     }
 }
@@ -250,7 +250,7 @@ parameter:
     Dot_Pixel	: point size
     Dot_Style	: point Style
 ******************************************************************************/
-void Paint_DrawPoint(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, uint16_t Color,
+void Paint_DrawPoint(uint16_t Xpoint, uint16_t Ypoint, uint16_t Color,
                      DOT_PIXEL Dot_Pixel, DOT_STYLE Dot_Style)
 {
     if (Xpoint > paint_ctx->Width || Ypoint > paint_ctx->Height) {
@@ -267,13 +267,13 @@ void Paint_DrawPoint(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t 
                 if(Xpoint + XDir_Num - Dot_Pixel < 0 || Ypoint + YDir_Num - Dot_Pixel < 0)
                     break;
                 // printf("x = %d, y = %d\r\n", Xpoint + XDir_Num - Dot_Pixel, Ypoint + YDir_Num - Dot_Pixel);
-                Paint_SetPixel(paint_ctx, Xpoint + XDir_Num - Dot_Pixel, Ypoint + YDir_Num - Dot_Pixel, Color);
+                Paint_SetPixel(Xpoint + XDir_Num - Dot_Pixel, Ypoint + YDir_Num - Dot_Pixel, Color);
             }
         }
     } else {
         for (XDir_Num = 0; XDir_Num <  Dot_Pixel; XDir_Num++) {
             for (YDir_Num = 0; YDir_Num <  Dot_Pixel; YDir_Num++) {
-                Paint_SetPixel(paint_ctx, Xpoint + XDir_Num - 1, Ypoint + YDir_Num - 1, Color);
+                Paint_SetPixel(Xpoint + XDir_Num - 1, Ypoint + YDir_Num - 1, Color);
             }
         }
     }
@@ -290,7 +290,7 @@ parameter:
     Line_width : Line width
     Line_Style: Solid and dotted lines
 ******************************************************************************/
-void Paint_DrawLine(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend,
+void Paint_DrawLine(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend,
                     uint16_t Color, DOT_PIXEL Line_width, LINE_STYLE Line_Style)
 {
     if (Xstart > paint_ctx->Width || Ystart > paint_ctx->Height ||
@@ -318,12 +318,12 @@ void Paint_DrawLine(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Y
         if (Line_Style == LINE_STYLE_DOTTED && Dotted_Len % 3 == 0) {
             //Debug("LINE_DOTTED\r\n");
 						if(Color)
-							Paint_DrawPoint(paint_ctx, Xpoint, Ypoint, BLACK, Line_width, DOT_STYLE_DFT);
+							Paint_DrawPoint(Xpoint, Ypoint, BLACK, Line_width, DOT_STYLE_DFT);
             else
-							Paint_DrawPoint(paint_ctx, Xpoint, Ypoint, WHITE, Line_width, DOT_STYLE_DFT);
+							Paint_DrawPoint(Xpoint, Ypoint, WHITE, Line_width, DOT_STYLE_DFT);
             Dotted_Len = 0;
         } else {
-            Paint_DrawPoint(paint_ctx, Xpoint, Ypoint, Color, Line_width, DOT_STYLE_DFT);
+            Paint_DrawPoint(Xpoint, Ypoint, Color, Line_width, DOT_STYLE_DFT);
         }
         if (2 * Esp >= dy) {
             if (Xpoint == Xend)
@@ -351,7 +351,7 @@ parameter:
     Line_width: Line width
     Draw_Fill : Whether to fill the inside of the rectangle
 ******************************************************************************/
-void Paint_DrawRectangle(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend,
+void Paint_DrawRectangle(uint16_t Xstart, uint16_t Ystart, uint16_t Xend, uint16_t Yend,
                          uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill)
 {
     if (Xstart > paint_ctx->Width || Ystart > paint_ctx->Height ||
@@ -363,13 +363,13 @@ void Paint_DrawRectangle(gui_render_context_t *paint_ctx, uint16_t Xstart, uint1
     if (Draw_Fill) {
         uint16_t Ypoint;
         for(Ypoint = Ystart; Ypoint < Yend; Ypoint++) {
-            Paint_DrawLine(paint_ctx, Xstart, Ypoint, Xend, Ypoint, Color , Line_width, LINE_STYLE_SOLID);
+            Paint_DrawLine(Xstart, Ypoint, Xend, Ypoint, Color , Line_width, LINE_STYLE_SOLID);
         }
     } else {
-        Paint_DrawLine(paint_ctx, Xstart, Ystart, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(paint_ctx, Xstart, Ystart, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(paint_ctx, Xend, Yend, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
-        Paint_DrawLine(paint_ctx, Xend, Yend, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
+        Paint_DrawLine(Xstart, Ystart, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
+        Paint_DrawLine(Xstart, Ystart, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
+        Paint_DrawLine(Xend, Yend, Xend, Ystart, Color, Line_width, LINE_STYLE_SOLID);
+        Paint_DrawLine(Xend, Yend, Xstart, Yend, Color, Line_width, LINE_STYLE_SOLID);
     }
 }
 
@@ -384,7 +384,7 @@ parameter:
     Line_width: Line width
     Draw_Fill : Whether to fill the inside of the Circle
 ******************************************************************************/
-void Paint_DrawCircle(gui_render_context_t *paint_ctx, uint16_t X_Center, uint16_t Y_Center, uint16_t Radius,
+void Paint_DrawCircle(uint16_t X_Center, uint16_t Y_Center, uint16_t Radius,
                       uint16_t Color, DOT_PIXEL Line_width, DRAW_FILL Draw_Fill)
 {
     if (X_Center > paint_ctx->Width || Y_Center >= paint_ctx->Height) {
@@ -404,14 +404,14 @@ void Paint_DrawCircle(gui_render_context_t *paint_ctx, uint16_t X_Center, uint16
     if (Draw_Fill == DRAW_FILL_FULL) {
         while (XCurrent <= YCurrent ) { //Realistic circles
             for (sCountY = XCurrent; sCountY <= YCurrent; sCountY ++ ) {
-                Paint_DrawPoint(paint_ctx, X_Center + XCurrent, Y_Center + sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//1
-                Paint_DrawPoint(paint_ctx, X_Center - XCurrent, Y_Center + sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//2
-                Paint_DrawPoint(paint_ctx, X_Center - sCountY, Y_Center + XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//3
-                Paint_DrawPoint(paint_ctx, X_Center - sCountY, Y_Center - XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//4
-                Paint_DrawPoint(paint_ctx, X_Center - XCurrent, Y_Center - sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//5
-                Paint_DrawPoint(paint_ctx, X_Center + XCurrent, Y_Center - sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//6
-                Paint_DrawPoint(paint_ctx, X_Center + sCountY, Y_Center - XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//7
-                Paint_DrawPoint(paint_ctx, X_Center + sCountY, Y_Center + XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);
+                Paint_DrawPoint(X_Center + XCurrent, Y_Center + sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//1
+                Paint_DrawPoint(X_Center - XCurrent, Y_Center + sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//2
+                Paint_DrawPoint(X_Center - sCountY, Y_Center + XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//3
+                Paint_DrawPoint(X_Center - sCountY, Y_Center - XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//4
+                Paint_DrawPoint(X_Center - XCurrent, Y_Center - sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//5
+                Paint_DrawPoint(X_Center + XCurrent, Y_Center - sCountY, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//6
+                Paint_DrawPoint(X_Center + sCountY, Y_Center - XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);//7
+                Paint_DrawPoint(X_Center + sCountY, Y_Center + XCurrent, Color, DOT_PIXEL_DFT, DOT_STYLE_DFT);
             }
             if (Esp < 0 )
                 Esp += 4 * XCurrent + 6;
@@ -423,14 +423,14 @@ void Paint_DrawCircle(gui_render_context_t *paint_ctx, uint16_t X_Center, uint16
         }
     } else { //Draw a hollow circle
         while (XCurrent <= YCurrent ) {
-            Paint_DrawPoint(paint_ctx, X_Center + XCurrent, Y_Center + YCurrent, Color, Line_width, DOT_STYLE_DFT);//1
-            Paint_DrawPoint(paint_ctx, X_Center - XCurrent, Y_Center + YCurrent, Color, Line_width, DOT_STYLE_DFT);//2
-            Paint_DrawPoint(paint_ctx, X_Center - YCurrent, Y_Center + XCurrent, Color, Line_width, DOT_STYLE_DFT);//3
-            Paint_DrawPoint(paint_ctx, X_Center - YCurrent, Y_Center - XCurrent, Color, Line_width, DOT_STYLE_DFT);//4
-            Paint_DrawPoint(paint_ctx, X_Center - XCurrent, Y_Center - YCurrent, Color, Line_width, DOT_STYLE_DFT);//5
-            Paint_DrawPoint(paint_ctx, X_Center + XCurrent, Y_Center - YCurrent, Color, Line_width, DOT_STYLE_DFT);//6
-            Paint_DrawPoint(paint_ctx, X_Center + YCurrent, Y_Center - XCurrent, Color, Line_width, DOT_STYLE_DFT);//7
-            Paint_DrawPoint(paint_ctx, X_Center + YCurrent, Y_Center + XCurrent, Color, Line_width, DOT_STYLE_DFT);//0
+            Paint_DrawPoint(X_Center + XCurrent, Y_Center + YCurrent, Color, Line_width, DOT_STYLE_DFT);//1
+            Paint_DrawPoint(X_Center - XCurrent, Y_Center + YCurrent, Color, Line_width, DOT_STYLE_DFT);//2
+            Paint_DrawPoint(X_Center - YCurrent, Y_Center + XCurrent, Color, Line_width, DOT_STYLE_DFT);//3
+            Paint_DrawPoint(X_Center - YCurrent, Y_Center - XCurrent, Color, Line_width, DOT_STYLE_DFT);//4
+            Paint_DrawPoint(X_Center - XCurrent, Y_Center - YCurrent, Color, Line_width, DOT_STYLE_DFT);//5
+            Paint_DrawPoint(X_Center + XCurrent, Y_Center - YCurrent, Color, Line_width, DOT_STYLE_DFT);//6
+            Paint_DrawPoint(X_Center + YCurrent, Y_Center - XCurrent, Color, Line_width, DOT_STYLE_DFT);//7
+            Paint_DrawPoint(X_Center + YCurrent, Y_Center + XCurrent, Color, Line_width, DOT_STYLE_DFT);//0
 
             if (Esp < 0 )
                 Esp += 4 * XCurrent + 6;
@@ -453,7 +453,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawChar(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, const char Acsii_Char,
+void Paint_DrawChar(uint16_t Xpoint, uint16_t Ypoint, const char Acsii_Char,
                     sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background)
 {
     uint16_t Page, Column;
@@ -472,14 +472,14 @@ void Paint_DrawChar(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Y
             //To determine whether the font background color and screen background color is consistent
             if (FONT_BACKGROUND == Color_Background) { //this process is to speed up the scan
                 if (*ptr & (0x80 >> (Column % 8)))
-                    Paint_SetPixel(paint_ctx, Xpoint + Column, Ypoint + Page, Color_Foreground);
+                    Paint_SetPixel(Xpoint + Column, Ypoint + Page, Color_Foreground);
                     // Paint_DrawPoint(Xpoint + Column, Ypoint + Page, Color_Foreground, DOT_PIXEL_DFT, DOT_STYLE_DFT);
             } else {
                 if (*ptr & (0x80 >> (Column % 8))) {
-                    Paint_SetPixel(paint_ctx, Xpoint + Column, Ypoint + Page, Color_Foreground);
+                    Paint_SetPixel(Xpoint + Column, Ypoint + Page, Color_Foreground);
                     // Paint_DrawPoint(Xpoint + Column, Ypoint + Page, Color_Foreground, DOT_PIXEL_DFT, DOT_STYLE_DFT);
                 } else {
-                    Paint_SetPixel(paint_ctx, Xpoint + Column, Ypoint + Page, Color_Background);
+                    Paint_SetPixel(Xpoint + Column, Ypoint + Page, Color_Background);
                     // Paint_DrawPoint(Xpoint + Column, Ypoint + Page, Color_Background, DOT_PIXEL_DFT, DOT_STYLE_DFT);
                 }
             }
@@ -502,7 +502,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawString_EN(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, const char * pString,
+void Paint_DrawString_EN(uint16_t Xstart, uint16_t Ystart, const char * pString,
                          sFONT* Font, uint16_t Color_Foreground, uint16_t Color_Background)
 {
     uint16_t Xpoint = Xstart;
@@ -525,7 +525,7 @@ void Paint_DrawString_EN(gui_render_context_t *paint_ctx, uint16_t Xstart, uint1
             Xpoint = Xstart;
             Ypoint = Ystart;
         }
-        Paint_DrawChar(paint_ctx, Xpoint, Ypoint, * pString, Font, Color_Background, Color_Foreground);
+        Paint_DrawChar(Xpoint, Ypoint, * pString, Font, Color_Background, Color_Foreground);
 
         //The next character of the address
         pString ++;
@@ -548,7 +548,7 @@ parameter:
     Color_Background : Select the background color
 ******************************************************************************/
 #define  ARRAY_LEN 255
-void Paint_DrawNum(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Ypoint, double Nummber,
+void Paint_DrawNum(uint16_t Xpoint, uint16_t Ypoint, double Nummber,
                    sFONT* Font, uint16_t Digit,uint16_t Color_Foreground, uint16_t Color_Background)
 {
     int16_t Num_Bit = 0, Str_Bit = 0;
@@ -594,7 +594,7 @@ void Paint_DrawNum(gui_render_context_t *paint_ctx, uint16_t Xpoint, uint16_t Yp
     }
 
     //show
-    Paint_DrawString_EN(paint_ctx, Xpoint, Ypoint, (const char*)pStr, Font, Color_Background, Color_Foreground);
+    Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Background, Color_Foreground);
 }
 
 /******************************************************************************
@@ -607,7 +607,7 @@ parameter:
     Color_Foreground : Select the foreground color
     Color_Background : Select the background color
 ******************************************************************************/
-void Paint_DrawTime(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font,
+void Paint_DrawTime(uint16_t Xstart, uint16_t Ystart, PAINT_TIME *pTime, sFONT* Font,
                     uint16_t Color_Foreground, uint16_t Color_Background)
 {
     uint8_t value[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -615,25 +615,25 @@ void Paint_DrawTime(gui_render_context_t *paint_ctx, uint16_t Xstart, uint16_t Y
     uint16_t Dx = Font->Width;
 
     //Write data into the cache
-    Paint_DrawChar(paint_ctx, Xstart                           , Ystart, value[pTime->Hour / 10], Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx                      , Ystart, value[pTime->Hour % 10], Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx  + Dx / 4 + Dx / 2   , Ystart, ':'                    , Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx * 2 + Dx / 2         , Ystart, value[pTime->Min / 10] , Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx * 3 + Dx / 2         , Ystart, value[pTime->Min % 10] , Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx * 4 + Dx / 2 - Dx / 4, Ystart, ':'                    , Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx * 5                  , Ystart, value[pTime->Sec / 10] , Font, Color_Background, Color_Foreground);
-    Paint_DrawChar(paint_ctx, Xstart + Dx * 6                  , Ystart, value[pTime->Sec % 10] , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart                           , Ystart, value[pTime->Hour / 10], Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx                      , Ystart, value[pTime->Hour % 10], Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx  + Dx / 4 + Dx / 2   , Ystart, ':'                    , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx * 2 + Dx / 2         , Ystart, value[pTime->Min / 10] , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx * 3 + Dx / 2         , Ystart, value[pTime->Min % 10] , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx * 4 + Dx / 2 - Dx / 4, Ystart, ':'                    , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx * 5                  , Ystart, value[pTime->Sec / 10] , Font, Color_Background, Color_Foreground);
+    Paint_DrawChar(Xstart + Dx * 6                  , Ystart, value[pTime->Sec % 10] , Font, Color_Background, Color_Foreground);
     
 }
 
 
-void Paint_DrawImage(gui_render_context_t *paint_ctx, const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) 
+void Paint_DrawImage(const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) 
 {
     int i,j; 
 		for(j = 0; j < H_Image; j++){
 			for(i = 0; i < W_Image; i++){
 				if(xStart+i < paint_ctx->WidthMemory  &&  yStart+j < paint_ctx->HeightMemory)//Exceeded part does not display
-					Paint_SetPixel(paint_ctx, xStart + i, yStart + j, (*(image + j*W_Image*2 + i*2+1))<<8 | (*(image + j*W_Image*2 + i*2)));
+					Paint_SetPixel(xStart + i, yStart + j, (*(image + j*W_Image*2 + i*2+1))<<8 | (*(image + j*W_Image*2 + i*2)));
 				//Using arrays is a property of sequential storage, accessing the original array by algorithm
 				//j*W_Image*2 			   Y offset
 				//i*2              	   X offset
@@ -641,13 +641,13 @@ void Paint_DrawImage(gui_render_context_t *paint_ctx, const unsigned char *image
 		} 
 }
 
-void Paint_DrawImage1(gui_render_context_t *paint_ctx, const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) 
+void Paint_DrawImage1(const unsigned char *image, uint16_t xStart, uint16_t yStart, uint16_t W_Image, uint16_t H_Image) 
 {
     int i,j; 
 		for(j = 0; j < H_Image; j++){
 			for(i = 0; i < W_Image; i++){
 				if(xStart+i < paint_ctx->HeightMemory  &&  yStart+j < paint_ctx->WidthMemory)//Exceeded part does not display
-					Paint_SetPixel(paint_ctx, xStart + i, yStart + j, (*(image + j*W_Image*2 + i*2+1))<<8 | (*(image + j*W_Image*2 + i*2)));
+					Paint_SetPixel(xStart + i, yStart + j, (*(image + j*W_Image*2 + i*2+1))<<8 | (*(image + j*W_Image*2 + i*2)));
 				//Using arrays is a property of sequential storage, accessing the original array by algorithm
 				//j*W_Image*2 			   Y offset
 				//i*2              	   X offset
@@ -663,7 +663,7 @@ info:
     Use a computer to convert the image into a corresponding array,
     and then embed the array directly into Imagedata.cpp as a .c file.
 ******************************************************************************/
-void Paint_DrawBitMap(gui_render_context_t *paint_ctx, const unsigned char* image_buffer)
+void Paint_DrawBitMap(const unsigned char* image_buffer)
 {
     uint16_t x, y;
     uint32_t Addr = 0;
@@ -676,7 +676,7 @@ void Paint_DrawBitMap(gui_render_context_t *paint_ctx, const unsigned char* imag
     }
 }
 
-void Paint_DrawBitMap_Block(gui_render_context_t *paint_ctx, const unsigned char* image_buffer, uint8_t Region)
+void Paint_DrawBitMap_Block(const unsigned char* image_buffer, uint8_t Region)
 {
     uint16_t x, y;
     uint32_t Addr = 0;
@@ -691,14 +691,14 @@ void Paint_DrawBitMap_Block(gui_render_context_t *paint_ctx, const unsigned char
 
 
 
- void Paint_BmpWindows(gui_render_context_t *paint_ctx, unsigned char x,unsigned char y,const unsigned char *pBmp,
+ void Paint_BmpWindows(unsigned char x,unsigned char y,const unsigned char *pBmp,
 					unsigned char chWidth,unsigned char chHeight)
 {
 	uint16_t i, j, byteWidth = (chWidth + 7)/8;
     for(j = 0; j < chHeight; j ++){
         for(i = 0; i < chWidth; i ++ ) {
             if(*(pBmp + j * byteWidth + i / 8) & (128 >> (i & 7))) {
-                Paint_SetPixel(paint_ctx, x+i, y+j, 0xffff);
+                Paint_SetPixel(x+i, y+j, 0xffff);
             }
         }
     }
