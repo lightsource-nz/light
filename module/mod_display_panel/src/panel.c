@@ -87,14 +87,14 @@ uint8_t light_component_type_display_panel_oled1p3in_i2c_create(light_component_
         
 
         light_component_pindef_t *next_pin = light_component_instance_get_pin_by_name(cmp, LIGHT_PANEL_PIN_NAME_SCL);
+        light_component_pindef_t *next_driver_pin = light_component_instance_get_pin_by_name(driver, LIGHT_DISPLAY_IC_PIN_NAME_I2C_SCL);
 
-        light_descriptor_write_name(driver->pin->name, LIGHT_DISPLAY_IC_PIN_NAME_I2C_SCL);
-        driver->pin->id = next_pin->id;
+        next_driver_pin->id = next_pin->id;
 
         next_pin = light_component_instance_get_pin_by_name(cmp, LIGHT_PANEL_PIN_NAME_SDA);
+        next_driver_pin = light_component_instance_get_pin_by_name(driver, LIGHT_DISPLAY_IC_PIN_NAME_I2C_SDA);
 
-        light_descriptor_write_name(driver->pin->name, LIGHT_DISPLAY_IC_PIN_NAME_I2C_SDA);
-        driver->pin->id = next_pin->id;
+        next_driver_pin->id = next_pin->id;
 
         uint8_t status;
         if(status = light_component_instance_create(driver)) {
@@ -184,9 +184,9 @@ uint8_t light_component_type_display_panel_instance_driver_ic_ref_set(light_comp
                 return LIGHT_INVALID_ARG;
         }
 
-        light_descriptor_write_name(ref->value, ref_str);
+        ref->target = target;
 
-        cmp->update(cmp, LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC, );
+        cmp->update(cmp, LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC, ref_str);
 
         return LIGHT_OK;
 }

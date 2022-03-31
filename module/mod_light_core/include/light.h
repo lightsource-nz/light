@@ -83,6 +83,7 @@ static inline const uint8_t *light_status_code_to_message(const uint8_t code)
 }
 
 #include <light/log.h>
+#include <light/component.h>
 
 void light_init(light_app_context_t *app);
 

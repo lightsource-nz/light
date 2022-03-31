@@ -10,7 +10,6 @@
 
 #include <stddef.h>
 
-
 light_component_type_t component_type_display_panel = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL,
         .parent = NULL,
@@ -60,6 +59,7 @@ light_component_type_t component_type_display_panel_oled1p3in_spi = {
         .init = light_component_type_display_panel_oled1p3in_i2c_init,
         .create = light_component_type_display_panel_oled1p3in_i2c_create
 };
+
 
 static light_module_t this_module = {
         .name = LIGHT_MODULE_NAME_DISPLAY_PANEL,

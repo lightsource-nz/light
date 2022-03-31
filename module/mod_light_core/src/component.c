@@ -155,6 +155,7 @@ uint8_t light_component_instance_validate_references(light_component_t *inst)
 
 uint8_t light_component_instance_reference_set(light_component_t *cmp, uint8_t *ref_id, uint8_t *value)
 {
+        light_log(LIGHT_TRACE, "%s: instance='%s', ref_id='%s', value='%s'");
         light_component_t *target;
         if((target = light_component_instance_get_by_name(value)) != NULL) {
                 light_log(LIGHT_WARN, "%s: component not found by name '%s'", __func__, value);
@@ -166,17 +167,18 @@ uint8_t light_component_instance_reference_set(light_component_t *cmp, uint8_t *
                 light_log(LIGHT_WARN, "%s: component reference not found by name '%s::%s'", __func__, cmp, ref_id);
                 return LIGHT_INVALID_ARG;
         }
+
+        if(!light_component_instance_is_of_type(target, ref->type->name)) {
+                light_log(LIGHT_WARN, "%s: target component '%s' is of type '%s', which does not match reference type '%s'", __func__, target, target->type, ref->type);
+                return LIGHT_INVALID_ARG;
+        }
+
         // if the reference already has a target, decrement that target's ref-count
         if(ref->target != NULL) {
                 if(ref->target->refs_incoming > 0) {    // this should always be true, actually
                         ref->target->refs_incoming--;
                 }
                 ref->target = NULL;
-        }
-
-        if(!light_component_instance_is_of_type(target, ref->type)) {
-                light_log(LIGHT_WARN, "%s: target component '%s' is of type '%s', which does not match reference type '%s'", __func__, target, target->type, ref->type);
-                return LIGHT_INVALID_ARG;
         }
 
         target->refs_incoming++;
