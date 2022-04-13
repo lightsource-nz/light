@@ -1,7 +1,7 @@
-#ifndef __GUI_PAINT_H
-#define __GUI_PAINT_H
+#ifndef __LIGHT_GUI_H
+#define __LIGHT_GUI_H
 
-#include "fonts.h"
+#include "light/display_fonts.h"
 
 /**
  * Image attributes

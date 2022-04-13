@@ -2,16 +2,16 @@
 #include <light/module.h>
 #include <light/component.h>
 
-#include <light_core.h>
-#include <mod_display_ic.h>
-#include <mod_display_panel.h>
+#include <light/mod_light_core.h>
+#include <light/mod_display_ic.h>
+#include <light/mod_display_panel.h>
 
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
-#include <component/panel.h>
+#include <light/display_panel.h>
 
 uint8_t light_component_type_display_panel_init(light_component_type_t *type)
 {
@@ -83,7 +83,7 @@ uint8_t light_component_type_display_panel_oled1p3in_i2c_create(light_component_
         }
         snprintf(driver->name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.driver", cmp->name);
 
-        driver->type = &component_type_display_ic_sh1106_i2c;
+        driver->type = &component_type_display_ic_sh1107_i2c;
         
 
         light_component_pindef_t *next_pin = light_component_instance_get_pin_by_name(cmp, LIGHT_PANEL_PIN_NAME_SCL);

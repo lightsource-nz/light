@@ -1,8 +1,8 @@
 #include <light.h>
-#include <light_board.h>
+#include <light/board.h>
 #include <light/module.h>
 #include <light/component.h>
-#include <light_core.h>
+#include <light/mod_light_core.h>
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -57,10 +57,11 @@ light_module_t *light_core_module_get()
 
 void light_core_init(light_app_context_t *app)
 {
-        light_log(LIGHT_DEBUG, "light_core module loaded");
+        light_log(LIGHT_TRACE, "%s: begin", __func__);
         light_component_init();
         light_component_type_register(&component_type_mainboard);
 
+        light_log(LIGHT_DEBUG, "%s: light_core module loaded", __func__);
 }
 
 uint8_t light_module_register(light_app_context_t *app, light_module_t *mod)

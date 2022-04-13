@@ -1,5 +1,5 @@
 ﻿#include <light.h>
-#include <light_core.h>
+#include <light/mod_light_core.h>
 
 static light_app_context_t this_app = {
         .name = "mod_light_core demo application",

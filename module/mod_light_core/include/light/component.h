@@ -10,6 +10,9 @@
 #define LIGHT_COMPONENT_PINS_MAX                32
 #define LIGHT_COMPONENT_TREE_HEIGHT_MAX         8
 
+#define LIGHT_COMPONENT_TYPE_IS_ABSTRACT        1
+#define LIGHT_COMPONENT_TYPE_IS_CONCRETE        0
+
 typedef struct _light_component_ref_type light_component_ref_type_t;
 typedef struct _light_component_type light_component_type_t;
 typedef struct _light_component light_component_t;
@@ -22,6 +25,7 @@ typedef struct _light_component_ref_type {
 typedef struct _light_component_type {
         const uint8_t *name;
         const light_component_type_t *parent;
+        const uint8_t is_abstract;
         const uint8_t *pin[LIGHT_COMPONENT_PINS_MAX];
         const uint8_t pin_count;
         const light_component_ref_type_t ref[LIGHT_COMPONENT_REFS_MAX];

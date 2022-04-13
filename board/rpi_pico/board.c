@@ -27,7 +27,7 @@
 # THE SOFTWARE.
 ******************************************************************************/
 #include <light.h>
-#include <light_board.h>
+#include <light/board.h>
 
 #include <hardware/spi.h>
 #include <hardware/i2c.h>

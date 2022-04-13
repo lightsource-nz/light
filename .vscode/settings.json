@@ -17,7 +17,9 @@
         "type_traits": "c",
         "mod_display_gui.h": "c",
         "panel.h": "c",
-        "mod_display_panel.h": "c"
+        "mod_display_panel.h": "c",
+        "gui.h": "c",
+        "mod_display_ic.h": "c"
     },
     "cmake.configureOnOpen": true
 }

@@ -2,13 +2,13 @@
 #include <light/module.h>
 #include <light/component.h>
 
-#include <light_core.h>
-#include <mod_display_gui.h>
-#include <mod_display_ic.h>
-#include <mod_display_panel.h>
+#include <light/mod_light_core.h>
+#include <light/mod_display_gui.h>
+#include <light/mod_display_ic.h>
+#include <light/mod_display_panel.h>
 
-#include <component/panel.h>
-#include <light/gui.h>
+#include <light/display_panel.h>
+#include <light/display_gui.h>
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -22,6 +22,7 @@ typedef struct gui_prop {
 light_component_type_t component_type_display_gui = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_GUI,
         .parent = NULL,
+        .is_abstract = LIGHT_COMPONENT_TYPE_IS_ABSTRACT,
         .pin_count = 0,
         .init = light_component_type_display_gui_init,
         .create = light_component_type_display_gui_create
@@ -30,6 +31,7 @@ light_component_type_t component_type_display_gui = {
 light_component_type_t component_type_display_gui_64x128 = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_GUI_64X128,
         .parent = NULL,
+        .is_abstract = LIGHT_COMPONENT_TYPE_IS_CONCRETE,
         .pin_count = 0,
         .init = light_component_type_display_gui_init,
         .create = light_component_type_display_gui_create

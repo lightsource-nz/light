@@ -1,7 +1,8 @@
 ﻿#include <light.h>
-#include <light_core.h>
 #include <light/component.h>
-#include <mod_display_panel.h>
+
+#include <light/mod_light_core.h>
+#include <light/mod_display_panel.h>
 
 static light_app_context_t this_app = {
         .name = "mod_display_panel demo application",

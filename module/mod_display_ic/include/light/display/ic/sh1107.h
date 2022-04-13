@@ -17,10 +17,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 ******************************************************************************/
-#ifndef __DRIVER_SH1107_H
-#define __DRIVER_SH1107_H		
+#ifndef __LIGHT_DISPLAY_IC_SH1107_H
+#define __LIGHT_DISPLAY_IC_SH1107_H		
 
-#include "light_board.h"
+#include "light/board.h"
 
 /********************************************************************************
 function:	

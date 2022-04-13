@@ -1,6 +1,6 @@
 #include <light.h>
-#include <light_board.h>
-#include <light/gui.h>
+#include <light/board.h>
+#include <light/display_gui.h>
 
 #include <stdint.h>
 #include <stdlib.h>

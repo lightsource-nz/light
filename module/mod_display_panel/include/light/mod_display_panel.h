@@ -3,11 +3,13 @@
 
 #define LIGHT_MODULE_NAME_DISPLAY_PANEL                         "display.panel"
     
-#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL                 "display.panel"
-#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN       "display.panel.oled1p3in"
-#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_I2C   "display.panel.oled1p3in.i2c"
-#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_SPI   "display.panel.oled1p3in.spi"
-#define LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC        "display."
+#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL                 "display.panel:type:base"
+#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN       "display.panel:type:oled1p3in"
+#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_I2C   "display.panel:type:oled1p3in.i2c"
+#define LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_SPI   "display.panel:type:oled1p3in.spi"
+
+#define LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC        "display.panel:ref:driver"
+#define LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_TARGET_GUI       "display.panel:ref:gui"
 
 // i2c and spi interfaces share clock and data pin names
 #define LIGHT_PANEL_PIN_NAME_SCL                                   "pin:SCL"

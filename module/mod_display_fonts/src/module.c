@@ -1,7 +1,7 @@
 #include <light.h>
 #include <light/module.h>
 
-#include <light_core.h>
+#include <light/mod_light_core.h>
 #include <light/mod_display_fonts.h>
 
 #include <stddef.h>
