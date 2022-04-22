@@ -51,10 +51,10 @@ light_component_type_t *light_component_type_get(uint8_t const *name)
 }
 
 uint8_t light_component_instance_validate_pin_mapping(light_component_t *inst);
-// light_component_instance_create:
+// light_component_spawn:
 // add component to table, passing the new instance to all parent types' create functions.
 // create() calls are made in descending order from the root of the type hierarchy
-uint8_t light_component_instance_create(light_component_t *inst)
+uint8_t light_component_spawn(light_component_t *inst)
 {
         if(light_component_count >= LIGHT_COMPONENTS_MAX)
                 return LIGHT_ALLOC_LIMIT_REACHED;
@@ -168,19 +168,21 @@ uint8_t light_component_instance_reference_set(light_component_t *cmp, uint8_t *
                 return LIGHT_INVALID_ARG;
         }
 
-        if(!light_component_instance_is_of_type(target, ref->type->name)) {
+        if(!light_component_instance_is_of_type(target, ref->type)) {
                 light_log(LIGHT_WARN, "%s: target component '%s' is of type '%s', which does not match reference type '%s'", __func__, target, target->type, ref->type);
                 return LIGHT_INVALID_ARG;
         }
 
         // if the reference already has a target, decrement that target's ref-count
         if(ref->target != NULL) {
-                if(ref->target->refs_incoming > 0) {    // this should always be true, actually
-                        ref->target->refs_incoming--;
+                light_component_t *old_target = light_component_instance_get_by_name(ref->target);
+                if(old_target->refs_incoming > 0) {    // this should always be true, actually
+                        old_target->refs_incoming--;
                 }
                 ref->target = NULL;
         }
 
+        ref->target = value;
         target->refs_incoming++;
 
         ref->type->update(cmp, ref_id, value);
@@ -198,9 +200,8 @@ light_component_t *light_component_instance_get_by_name(uint8_t const *name)
 
 }
 
-uint8_t light_component_instance_is_of_type(light_component_t *cmp, const uint8_t *type_name)
+uint8_t light_component_instance_is_of_type(light_component_t *cmp, light_component_type_t const *type)
 {
-        light_component_type_t const *type = light_component_type_get(type_name);
         do{
                 if(type == cmp->type)
                         return true;

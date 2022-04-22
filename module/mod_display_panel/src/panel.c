@@ -39,6 +39,11 @@ void light_component_type_display_panel_release(light_component_t *cmp)
         free(&cmp->object);
 }
 
+void light_component_type_display_panel_update(light_component_t *cmp, const uint8_t *refname, const uint8_t *value)
+{
+
+}
+
 uint8_t light_component_type_display_panel_oled1p3in_init(light_component_type_t *type)
 {
 
@@ -49,22 +54,44 @@ uint8_t light_component_type_display_panel_oled1p3in_create(light_component_t *c
         light_log(LIGHT_TRACE, "%s: cmp.name = %s", __func__, cmp->name);
 
         light_panel_t *panel = (light_panel_t *) &cmp->object;
-        light_panel_oled1p3in_t *child;
+
+        panel->x_pixels = LIGHT_COMPONENT_DISPLAY_PANEL_OLED1P3IN_X_PIXELS;
+        panel->y_pixels = LIGHT_COMPONENT_DISPLAY_PANEL_OLED1P3IN_Y_PIXELS;
+
+        /*light_panel_oled1p3in_t *child;
         
         if((child = malloc(sizeof(light_panel_oled1p3in_t))) == NULL) {
                 return LIGHT_ALLOC_FAILURE;
         }
         
         panel->child = child;
+        */
 
         return LIGHT_OK;
 }
 
 void light_component_type_display_panel_oled1p3in_release(light_component_t *cmp)
 {
+        
+}
+void light_component_type_display_panel_oled1p3in_update(light_component_t *cmp, const uint8_t *refname, const uint8_t *value)
+{
 
 }
 
+uint8_t light_component_display_panel_get_x_dimension(light_component_t *cmp)
+{
+        light_panel_t *panel = (light_panel_t *) &cmp->object;
+        return panel->x_pixels;
+}
+
+uint8_t light_component_display_panel_get_y_dimension(light_component_t *cmp)
+{
+        light_panel_t *panel = (light_panel_t *) &cmp->object;
+        return panel->y_pixels;
+}
+
+/*
 uint8_t light_component_type_display_panel_oled1p3in_i2c_init(light_component_type_t *type)
 {
         return LIGHT_OK;
@@ -97,7 +124,7 @@ uint8_t light_component_type_display_panel_oled1p3in_i2c_create(light_component_
         next_driver_pin->id = next_pin->id;
 
         uint8_t status;
-        if(status = light_component_instance_create(driver)) {
+        if(status = light_component_spawn(driver)) {
                 light_log(LIGHT_WARN, "failed to create component for display driver");
                 return status;
         }
@@ -110,14 +137,15 @@ uint8_t light_component_type_display_panel_oled1p3in_i2c_create(light_component_
         return LIGHT_OK;
 }
 
-// make sure to free the generated descriptor, after light_component_instance_destroy() removes all references to it
+// make sure to free the generated descriptor, after light_component_destroy() removes all references to it
 void light_component_type_display_panel_oled1p3in_i2c_release(light_component_t *cmp)
 {
-        light_panel_t *panel = (light_panel_t *) cmp->object;
-        light_panel_oled1p3in_t *panel_0 = (light_panel_oled1p3in_t *)panel->child;
-        light_component_instance_destroy(panel->driver_ic);
-        free(panel->driver_ic->name);
-        free(panel->driver_ic);
+        
+}
+
+void light_component_type_display_panel_oled1p3in_i2c_update(light_component_t *cmp, const uint8_t *refname, const uint8_t *value)
+{
+
 }
 
 uint8_t light_component_type_display_panel_oled1p3in_spi_init(light_component_type_t *type)
@@ -127,22 +155,23 @@ uint8_t light_component_type_display_panel_oled1p3in_spi_init(light_component_ty
 
 uint8_t light_component_type_display_panel_oled1p3in_spi_create(light_component_t *cmp)
 {
+        /*
         light_component_t *driver = malloc(sizeof(light_component_t));
         uint8_t *name = calloc(sizeof(uint8_t), LIGHT_DESCRIPTOR_NAME_MAX_LENGTH);
-        snprintf(name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.driver", cmp->name);
+        snprintf(name, LIGHT_DESCRIPTOR_NAME_MAX_LENGTH, "%s.display_ic", cmp->name);
         light_descriptor_write_name(driver->name, name);
         driver->type = &component_type_display_panel_oled1p3in_spi;
         
         uint8_t status;
 
-        if(status = light_component_instance_create(driver)) {
+        if(status = light_component_spawn(driver)) {
                 light_log(LIGHT_WARN, "failed to create component for display driver");
                 return status;
         }
 
         light_panel_t *panel = (light_panel_t *) cmp->object;
         light_panel_oled1p3in_t *panel_0 = (light_panel_oled1p3in_t *)panel->child;
-        panel->driver_ic = driver;
+        //panel->driver_ic = driver;
         panel_0->transport = PANEL_TRANSPORT_SPI;
 
         return LIGHT_OK;
@@ -150,43 +179,11 @@ uint8_t light_component_type_display_panel_oled1p3in_spi_create(light_component_
 
 void light_component_type_display_panel_oled1p3in_spi_release(light_component_t *cmp)
 {
-        light_panel_t *panel = (light_panel_t *) cmp->object;
-        light_panel_oled1p3in_t *panel_0 = (light_panel_oled1p3in_t *)panel->child;
-        light_component_instance_destroy(panel->driver_ic);
-        free(panel->driver_ic->name);
-        free(panel->driver_ic);
+        
 }
 
-uint8_t light_component_type_display_panel_instance_driver_ic_ref_set(light_component_t *cmp, uint8_t *ref_str)
+void light_component_type_display_panel_oled1p3in_spi_update(light_component_t *cmp, const uint8_t *refname, const uint8_t *value)
 {
-        light_log(LIGHT_TRACE, "%s: begin", __func__);
-        light_log(LIGHT_DEBUG, "%s: component name: %s", __func__, cmp->name);
-        light_log(LIGHT_DEBUG, "%s: reference value: %s", __func__, ref_str);
 
-        light_component_t *target;
-        if((target = light_component_instance_get_by_name(ref_str)) == NULL) {
-                light_log(LIGHT_WARN, "%s: component ref '%s' could not be resolved", __func__, ref_str);
-                return LIGHT_INVALID_ARG;
-        }
-        if(!light_component_instance_is_of_type(cmp, LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL)) {
-                light_log(LIGHT_WARN, "%s: invoked on component '%s' of the incompatible type '%s'", __func__, cmp->name, cmp->type->name);
-                return LIGHT_INVALID_ARG;
-        }
-        if(!light_component_instance_is_of_type(target, LIGHT_COMPONENT_TYPE_NAME_DISPLAY_IC)) {
-                light_log(LIGHT_WARN, "%s: component ref '%s' refers to a component of the incompatible type '%s'", __func__, target->name, target->type->name);
-                return LIGHT_INVALID_ARG;
-        }
-
-        light_component_ref_t *ref;
-        if((ref = light_component_instance_get_ref_by_name(cmp, ref_str)) == NULL) {
-
-                light_log(LIGHT_WARN, "%s: component ref '%s' refers to a component of the incompatible type '%s'", __func__, target->type->name);
-                return LIGHT_INVALID_ARG;
-        }
-
-        ref->target = target;
-
-        cmp->update(cmp, LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_DRIVER_IC, ref_str);
-
-        return LIGHT_OK;
 }
+*/

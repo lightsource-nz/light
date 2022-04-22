@@ -17,7 +17,12 @@ static light_module_t this_module = {
 light_component_type_t component_type_display_ic = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_IC,
         .is_abstract = LIGHT_COMPONENT_TYPE_IS_ABSTRACT,
-        .pin_count = 0,
+        .pin_count = 3,
+        .pin = {
+                LIGHT_DISPLAY_IC_PIN_NAME_RESET,
+                LIGHT_DISPLAY_IC_PIN_NAME_CS,
+                LIGHT_DISPLAY_IC_PIN_NAME_DC
+        },
         .ref_count = 0,
         .init = light_component_type_display_ic_init,
         .create = light_component_type_display_ic_create
@@ -37,7 +42,11 @@ light_component_type_t component_type_display_ic_sh1107_i2c = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_IC_SH1107_I2C,
         .parent = &component_type_display_ic_sh1107,
         .is_abstract = LIGHT_COMPONENT_TYPE_IS_CONCRETE,
-        .pin_count = 0,
+        .pin_count = 2,
+        .pin = {
+                LIGHT_DISPLAY_IC_PIN_NAME_I2C_SCL,
+                LIGHT_DISPLAY_IC_PIN_NAME_I2C_SDA
+        },
         .ref_count = 0,
         .init = light_component_type_display_ic_sh1107_i2c_init,
         .create = light_component_type_display_ic_sh1107_i2c_create
@@ -47,7 +56,11 @@ light_component_type_t component_type_display_ic_sh1107_spi = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_IC_SH1107_SPI,
         .parent = &component_type_display_ic_sh1107,
         .is_abstract = LIGHT_COMPONENT_TYPE_IS_CONCRETE,
-        .pin_count = 0,
+        .pin_count = 2,
+        .pin = {
+                LIGHT_DISPLAY_IC_PIN_NAME_SPI_CLK,
+                LIGHT_DISPLAY_IC_PIN_NAME_SPI_MOSI
+        },
         .ref_count = 0,
         .init = light_component_type_display_ic_sh1107_spi_init,
         .create = light_component_type_display_ic_sh1107_spi_create

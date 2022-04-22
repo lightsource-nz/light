@@ -96,7 +96,7 @@ uint8_t light_component_type_display_gui_64x128_create(light_component_t *cmp)
 
 uint8_t light_component_action_display_gui_set_context(light_component_t *cmp)
 {
-        if(!light_component_instance_is_of_type(cmp, LIGHT_COMPONENT_TYPE_NAME_DISPLAY_GUI)) {
+        if(!light_component_instance_is_of_type(cmp, &component_type_display_gui)) {
                 return LIGHT_INVALID_ARG;
         }
 

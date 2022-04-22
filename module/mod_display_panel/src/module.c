@@ -24,23 +24,27 @@ light_component_type_t component_type_display_panel = {
                 },
                 {
                         .name = LIGHT_COMPONENT_REF_NAME_DISPLAY_PANEL_TARGET_GUI,
-                        .c_type = &component_type_display_gui_64x128
+                        .c_type = &component_type_display_gui
                 }
         },
         .init = light_component_type_display_panel_init,
-        .create = light_component_type_display_panel_create
+        .create = light_component_type_display_panel_create,
+        .update = light_component_type_display_panel_update,
+        .release = light_component_type_display_panel_release
 };
 
 light_component_type_t component_type_display_panel_oled1p3in = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN,
         .parent = &component_type_display_panel,
-        .is_abstract = LIGHT_COMPONENT_TYPE_IS_ABSTRACT,
+        .is_abstract = LIGHT_COMPONENT_TYPE_IS_CONCRETE,
         .pin_count = 0,
         .ref_count = 0,
         .init = light_component_type_display_panel_oled1p3in_init,
-        .create = light_component_type_display_panel_oled1p3in_create
+        .create = light_component_type_display_panel_oled1p3in_create,
+        .update = light_component_type_display_panel_oled1p3in_update,
+        .release = light_component_type_display_panel_oled1p3in_release
 };
-
+/*
 light_component_type_t component_type_display_panel_oled1p3in_i2c = {
         .name = LIGHT_COMPONENT_TYPE_NAME_DISPLAY_PANEL_OLED1P3IN_I2C,
         .parent = &component_type_display_panel_oled1p3in,
@@ -51,7 +55,9 @@ light_component_type_t component_type_display_panel_oled1p3in_i2c = {
                 LIGHT_PANEL_PIN_NAME_SDA
         },
         .init = light_component_type_display_panel_oled1p3in_i2c_init,
-        .create = light_component_type_display_panel_oled1p3in_i2c_create
+        .create = light_component_type_display_panel_oled1p3in_i2c_create,
+        .update = light_component_type_display_panel_oled1p3in_i2c_update,
+        .release = light_component_type_display_panel_oled1p3in_i2c_release
 };
 
 light_component_type_t component_type_display_panel_oled1p3in_spi = {
@@ -66,9 +72,12 @@ light_component_type_t component_type_display_panel_oled1p3in_spi = {
                 LIGHT_PANEL_PIN_NAME_DC,
                 LIGHT_PANEL_PIN_NAME_CS
         },
-        .init = light_component_type_display_panel_oled1p3in_i2c_init,
-        .create = light_component_type_display_panel_oled1p3in_i2c_create
+        .init = light_component_type_display_panel_oled1p3in_spi_init,
+        .create = light_component_type_display_panel_oled1p3in_spi_create,
+        .update = light_component_type_display_panel_oled1p3in_spi_update,
+        .release = light_component_type_display_panel_oled1p3in_spi_release
 };
+*/
 
 
 static light_module_t this_module = {
@@ -87,8 +96,8 @@ void light_display_panel_module_init(light_app_context_t *app)
 {
         light_component_type_register(&component_type_display_panel);
         light_component_type_register(&component_type_display_panel_oled1p3in);
-        light_component_type_register(&component_type_display_panel_oled1p3in_i2c);
-        light_component_type_register(&component_type_display_panel_oled1p3in_spi);
+        //light_component_type_register(&component_type_display_panel_oled1p3in_i2c);
+        //light_component_type_register(&component_type_display_panel_oled1p3in_spi);
 }
 
 light_module_t *light_display_panel_module_get()
