@@ -24,4 +24,9 @@ uint8_t light_component_type_display_gui_64x128_create(light_component_t *cmp);
 
 uint8_t light_component_action_display_gui_set_context(light_component_t *cmp);
 
+void light_component_action_display_gui_clear_screen(light_component_t *cmp, uint16_t color);
+void light_component_action_display_gui_update_screen(light_component_t *cmp);
+
+void light_component_action_display_gui_draw_rect(light_component_t *cmp);
+
 #endif

@@ -106,3 +106,18 @@ uint8_t light_component_action_display_gui_set_context(light_component_t *cmp)
         
         return LIGHT_OK;
 }
+
+void light_component_action_display_gui_clear_screen(light_component_t *cmp, uint16_t color)
+{
+        light_component_action_display_gui_set_context(cmp);
+        Paint_Clear(color);
+}
+void light_component_action_display_gui_update_screen(light_component_t *cmp)
+{
+        light_component_action_display_gui_set_context(cmp);
+}
+
+void light_component_action_display_gui_draw_rect(light_component_t *cmp)
+{
+
+}

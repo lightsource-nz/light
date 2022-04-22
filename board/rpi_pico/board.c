@@ -40,6 +40,12 @@
 #define SPI_PORT spi1
 #define I2C_PORT i2c1
 
+#define I2C_PORT_MAX        2
+#define SPI_PORT_MAX        2
+
+static uint8_t i2c_port_next = 0;
+static uint8_t spi_port_next = 0;
+
 /**
  * GPIO
 **/
@@ -223,3 +229,24 @@ void _light_board_log_handler(const char *msg)
 {
     printf("[light]: %s", msg);
 }
+
+uint8_t board_i2c_device_id_next();
+{
+    if(i2c_port_next < I2C_PORT_MAX) {
+        return i2c_port_next++;
+    } else {
+        return I2C_PORT_NONE;
+    }
+}
+
+uint8_t board_i2c_device_id_max()
+{
+    return I2C_PORT_MAX;
+}
+
+uint8_t board_i2c_device_init(uint8_t device_id, uint8_t pin_scl, uint8_t pin_sda)
+{
+    
+}
+
+uint8_t board_i2c_device_deinit(uint8_t device_id);
