@@ -37,158 +37,224 @@
 #include <stdio.h>
 #include <pico/stdio.h>
 
-#define SPI_PORT spi1
-#define I2C_PORT i2c1
-
-#define I2C_PORT_MAX        2
-#define SPI_PORT_MAX        2
+#define LIGHT_BOARD_I2C_PORT_MAX        2
+#define LIGHT_BOARD_SPI_PORT_MAX        2
 
 static uint8_t i2c_port_next = 0;
 static uint8_t spi_port_next = 0;
 
-/**
- * GPIO
-**/
-int EPD_RST_PIN;
-int EPD_DC_PIN;
-int EPD_CS_PIN;
-int EPD_BL_PIN;
-int EPD_CLK_PIN;
-int EPD_MOSI_PIN;
-int EPD_SCL_PIN;
-int EPD_SDA_PIN;
+//
+// internal functions to map between Light Framework hardware ids and internal device handles
+//
+uint8_t _light_board_device_id_to_handle_spi(uint8_t id, spi_inst_t **out_handle);
+uint8_t _light_board_device_id_to_handle_i2c(uint8_t id, i2c_inst_t **out_handle);
 
-
+// TODO pull this field into a device abstraction
 uint slice_num;
-/**
- * GPIO read and write
-**/
-void board_gpio_write(uint16_t Pin, uint8_t Value)
+
+void light_board_pin_set_func(uint8_t pin_id, uint8_t func)
 {
-    gpio_put(Pin, Value);
+        switch (func)
+        {
+        case LIGHT_BOARD_PIN_FUNC_GPIO:
+                gpio_set_function(pin_id, GPIO_FUNC_SIO);
+                break;
+        case LIGHT_BOARD_PIN_FUNC_I2C:
+
+
+        default:
+                break;
+        }
 }
 
-uint8_t board_gpio_read(uint16_t Pin)
+void light_board_pin_set_input(uint8_t pin_id)
 {
-    return gpio_get(Pin);
+        gpio_init(pin_id);
+        gpio_set_dir(pin_id, GPIO_IN);
+}
+void light_board_pin_set_output(uint8_t pin_id)
+{
+        gpio_init(pin_id);
+        gpio_set_dir(pin_id, GPIO_IN);
 }
 
-/**
- * SPI
-**/
-void board_spi_write_byte(uint8_t Value)
+void light_board_pin_set_pullup(uint8_t pin_id)
 {
-    spi_write_blocking(SPI_PORT, &Value, 1);
+        gpio_pull_up(pin_id);
+}
+void light_board_pin_set_pulldown(uint8_t pin_id)
+{
+        gpio_pull_down(pin_id);
+}
+void light_board_pin_set_pulls(uint8_t pin_id, bool up, bool down)
+{
+        gpio_set_pulls(pin_id, up, down);
 }
 
-void board_spi_write_bytes(uint8_t pData[], uint32_t Len)
+void light_board_gpio_write(uint8_t pin_id, uint8_t data)
 {
-    spi_write_blocking(SPI_PORT, pData, Len);
+        gpio_put(pin_id, data);
+}
+uint8_t light_board_gpio_read(uint8_t pin_id)
+{
+        return gpio_get(pin_id);
 }
 
-
-
-/**
- * I2C
-**/
-
-void board_i2c_write_byte(uint8_t device_id, uint8_t addr, uint8_t reg, uint8_t Value)
+uint8_t light_board_i2c_device_id_next()
 {
-    uint8_t data[2] = {reg, Value};
-    i2c_write_blocking(I2C_PORT, addr, data, 2, false);
+        if(i2c_port_next < LIGHT_BOARD_I2C_PORT_MAX) {
+                return i2c_port_next++;
+        } else {
+                return LIGHT_BOARD_I2C_PORT_NONE;
+        }
 }
 
-void board_i2c_write_bytes(uint8_t device_id, uint8_t addr, uint8_t *pData, uint32_t Len)
+uint8_t light_board_i2c_device_id_max()
 {
-    i2c_write_blocking(I2C_PORT, addr, pData, Len, false);
+        return LIGHT_BOARD_I2C_PORT_MAX;
 }
 
-uint8_t board_i2c_read_byte(uint8_t device_id, uint8_t addr, uint8_t reg)
+uint32_t light_board_i2c_device_init(uint8_t device_id, uint32_t baudrate, uint8_t pin_scl, uint8_t pin_sda)
 {
-    uint8_t buf;
-    i2c_write_blocking(I2C_PORT,addr,&reg,1,true);
-    i2c_read_blocking(I2C_PORT,addr,&buf,1,false);
-    return buf;
+        i2c_inst_t *handle;
+        if(!_light_board_device_id_to_handle_i2c(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+
+        if(pin_scl != LIGHT_BOARD_PIN_ID_NC)
+                gpio_set_function(pin_scl, GPIO_FUNC_I2C);
+        if(pin_sda != LIGHT_BOARD_PIN_ID_NC)
+                gpio_set_function(pin_sda, GPIO_FUNC_I2C);
+
+        return i2c_init(handle, baudrate);
 }
 
-/**
- * GPIO Mode
-**/
-void board_gpio_mode(uint16_t Pin, uint16_t Mode)
+uint8_t light_board_i2c_device_deinit(uint8_t device_id)
 {
-    gpio_init(Pin);
-    if(Mode == 0 || Mode == GPIO_IN) {
-        gpio_set_dir(Pin, GPIO_IN);
-    } else {
-        gpio_set_dir(Pin, GPIO_OUT);
-    }
+        i2c_inst_t *handle;
+        if(!_light_board_device_id_to_handle_i2c(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+
+        i2c_deinit(handle);
+        return LIGHT_OK;
+    
 }
 
-/**
- * KEY Config
-**/
-void board_gpio_set_key(uint16_t Pin)
+uint8_t light_board_i2c_write_byte(uint8_t device_id, uint8_t addr, uint8_t reg, uint8_t Value)
 {
-    gpio_init(Pin);
-	gpio_pull_up(Pin);
-    gpio_set_dir(Pin, GPIO_IN);
+        i2c_inst_t *handle;
+        if(!_light_board_device_id_to_handle_i2c(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+
+        uint8_t data[2] = {reg, Value};
+        i2c_write_blocking(handle, addr, data, 2, false);
+        return LIGHT_OK;
 }
+
+uint8_t light_board_i2c_write_bytes(uint8_t device_id, uint8_t addr, uint8_t *pData, uint32_t Len)
+{
+        i2c_inst_t *handle;
+        if(!_light_board_device_id_to_handle_i2c(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        i2c_write_blocking(handle, addr, pData, Len, false);
+        return LIGHT_OK;
+}
+
+uint8_t light_board_i2c_read_byte(uint8_t device_id, uint8_t addr, uint8_t reg, uint8_t *out_data)
+{
+        i2c_inst_t *handle;
+        if(!_light_board_device_id_to_handle_i2c(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+
+        i2c_write_blocking(handle,addr,&reg,1,true);
+        i2c_read_blocking(handle,addr,out_data,1,false);
+        return LIGHT_OK;
+}
+
+uint8_t light_board_spi_device_id_next()
+{
+        if(spi_port_next < LIGHT_BOARD_SPI_PORT_MAX) {
+                return spi_port_next++;
+        } else {
+                return LIGHT_BOARD_SPI_PORT_NONE;
+        }
+}
+
+uint8_t light_board_spi_device_id_max()
+{
+        return LIGHT_BOARD_SPI_PORT_MAX;
+}
+
+uint32_t light_board_spi_device_init(uint8_t device_id, uint32_t baudrate, uint8_t pin_clk, uint8_t pin_miso, uint8_t pin_mosi)
+{
+        spi_inst_t *handle;
+        if(!_light_board_device_id_to_handle_spi(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        spi_init(handle, baudrate);
+        return LIGHT_OK;
+}
+
+uint8_t light_board_spi_device_deinit(uint8_t device_id)
+{
+        spi_inst_t *handle;
+        if(!_light_board_device_id_to_handle_spi(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        spi_deinit(handle);
+        return LIGHT_OK;
+}
+
+uint8_t light_board_spi_write_byte(uint8_t device_id, uint8_t data)
+{
+        spi_inst_t *handle;
+        if(!_light_board_device_id_to_handle_spi(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        spi_write_blocking(handle, &data, 1);
+        return LIGHT_OK;
+
+}
+uint8_t light_board_spi_write_bytes(uint8_t device_id, uint8_t *p_data, uint32_t length)
+{
+        spi_inst_t *handle;
+        if(!_light_board_device_id_to_handle_spi(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        spi_write_blocking(handle, p_data, length);
+        return LIGHT_OK;
+
+}
+
+uint8_t light_board_spi_read_byte(uint8_t device_id, uint8_t *out_data)
+{
+        spi_inst_t *handle;
+        if(!_light_board_device_id_to_handle_spi(device_id, &handle))
+                return LIGHT_RESOURCE_UNAVAILABLE;
+        
+        spi_read_blocking(handle, 0x00, out_data, 1);
+        return LIGHT_OK;
+}
+
 
 /**
  * delay x ms
 **/
-void board_sleep_ms(uint32_t xms)
+void light_board_sleep_ms(uint32_t xms)
 {
-    sleep_ms(xms);
+        sleep_ms(xms);
 }
 
-void board_sleep_us(uint32_t xus)
+void light_board_sleep_us(uint32_t xus)
 {
-    sleep_us(xus);
-}
-
-
-
-void board_gpio_init(void)
-{
-    board_gpio_mode(EPD_RST_PIN, 1);
-    board_gpio_mode(EPD_DC_PIN, 1);
-    board_gpio_mode(EPD_CS_PIN, 1);
-    board_gpio_mode(EPD_BL_PIN, 1);
-    
-    
-    board_gpio_mode(EPD_CS_PIN, 1);
-    board_gpio_mode(EPD_BL_PIN, 1);
-
-    board_gpio_mode(EPD_CS_PIN, 1);
-    board_gpio_mode(EPD_DC_PIN, 0);
-    board_gpio_mode(EPD_BL_PIN, 1);
+        sleep_us(xus);
 }
 
 uint8_t light_board_init(void)
 {
     stdio_init_all();
     
-    //GPIO PIN
-    EPD_RST_PIN     = 12;
-    EPD_DC_PIN      = 8;
-    EPD_BL_PIN    = 13;
-    
-    EPD_CS_PIN      = 9;
-    EPD_CLK_PIN     = 10;
-    EPD_MOSI_PIN    = 11;
-    
-    EPD_SCL_PIN    = 7;
-    EPD_SDA_PIN    = 6;
-    
-    // SPI Config
-    spi_init(SPI_PORT, 10000 * 1000);
-    gpio_set_function(EPD_CLK_PIN, GPIO_FUNC_SPI);
-    gpio_set_function(EPD_MOSI_PIN, GPIO_FUNC_SPI);
-    
-    // GPIO Config
-    board_gpio_init();
-    
+    /*
     // PWM Config
     gpio_set_function(EPD_BL_PIN, GPIO_FUNC_PWM);
     slice_num = pwm_gpio_to_slice_num(EPD_BL_PIN);
@@ -196,31 +262,23 @@ uint8_t light_board_init(void)
     pwm_set_chan_level(slice_num, PWM_CHAN_B, 1);
     pwm_set_clkdiv(slice_num,50);
     pwm_set_enabled(slice_num, true);
+    */
     
-    
-    //I2C Config
-    i2c_init(i2c1,300*1000);
-    gpio_set_function(EPD_SDA_PIN,GPIO_FUNC_I2C);
-    gpio_set_function(EPD_SCL_PIN,GPIO_FUNC_I2C);
-    gpio_pull_up(EPD_SDA_PIN);
-    gpio_pull_up(EPD_SCL_PIN);
-    
-    printf("light_display_board_init() OK \r\n");
+    light_log(LIGHT_INFO, "%s: init OK", __func__);
     return LIGHT_OK;
 }
 
-void board_set_pwm(uint8_t Value){
+/*
+void light_board_set_pwm(uint8_t Value){
     if(Value<0 || Value >100){
         printf("board_set_pwm Error \r\n");
     }else {
         pwm_set_chan_level(slice_num, PWM_CHAN_B, Value);
     }
-        
-    
-    
 }
+*/
 
-void light_display_board_exit(void)
+void light_board_exit(void)
 {
 
 }
@@ -230,23 +288,34 @@ void _light_board_log_handler(const char *msg)
     printf("[light]: %s", msg);
 }
 
-uint8_t board_i2c_device_id_next();
+uint8_t _light_board_device_id_to_handle_spi(uint8_t id, spi_inst_t **out_handle)
 {
-    if(i2c_port_next < I2C_PORT_MAX) {
-        return i2c_port_next++;
-    } else {
-        return I2C_PORT_NONE;
-    }
+        switch (id)
+        {
+        case 0:
+                *out_handle = spi0;
+                return true;
+        case 1:
+                *out_handle = spi1;
+                return true;
+        default:
+                *out_handle = NULL;
+                return false;
+        }
 }
 
-uint8_t board_i2c_device_id_max()
+uint8_t _light_board_device_id_to_handle_i2c(uint8_t id, i2c_inst_t **out_handle)
 {
-    return I2C_PORT_MAX;
+        switch (id)
+        {
+        case 0:
+                *out_handle = i2c0;
+                return true;
+        case 1:
+                *out_handle = i2c1;
+                return true;
+        default:
+                *out_handle = NULL;
+                return false;
+        }
 }
-
-uint8_t board_i2c_device_init(uint8_t device_id, uint8_t pin_scl, uint8_t pin_sda)
-{
-    
-}
-
-uint8_t board_i2c_device_deinit(uint8_t device_id);

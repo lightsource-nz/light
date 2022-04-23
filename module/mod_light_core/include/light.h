@@ -17,11 +17,13 @@
 #define LIGHT_ALLOC_LIMIT_REACHED               1
 #define LIGHT_ALLOC_FAILURE                     2
 #define LIGHT_INVALID_ARG                       3
+#define LIGHT_RESOURCE_UNAVAILABLE              4
 
 #define LIGHT_OK_STRING                     "OK"
 #define LIGHT_INVALID_ARG_STRING            "Invalid argument"
 #define LIGHT_ALLOC_LIMIT_REACHED_STRING    "Static memory limit reached"
 #define LIGHT_ALLOC_FAILURE_STRING          "Dynamic memory allocation failed"
+#define LIGHT_RESOURCE_UNAVAILABLE_STRING   "Hardware resource unavailable"
 #define LIGHT_STATUS_UNDEF_STRING           "Undefined status code"
 
 // data structure constants
