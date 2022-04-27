@@ -28,13 +28,17 @@ light_module_t *light_display_ic_module_get();
 
 uint8_t light_component_type_display_ic_init(light_component_type_t *type);
 uint8_t light_component_type_display_ic_create(light_component_t *cmp);
+void light_component_type_display_ic_release(light_component_t *cmp);
 
 uint8_t light_component_type_display_ic_sh1107_init(light_component_type_t *type);
 uint8_t light_component_type_display_ic_sh1107_create(light_component_t *cmp);
+void light_component_type_display_ic_sh1107_release(light_component_t *cmp);
 
 uint8_t light_component_type_display_ic_sh1107_i2c_init(light_component_type_t *type);
 uint8_t light_component_type_display_ic_sh1107_i2c_create(light_component_t *cmp);
+void light_component_type_display_ic_sh1107_i2c_release(light_component_t *cmp);
 uint8_t light_component_type_display_ic_sh1107_spi_init(light_component_type_t *type);
 uint8_t light_component_type_display_ic_sh1107_spi_create(light_component_t *cmp);
+void light_component_type_display_ic_sh1107_spi_release(light_component_t *cmp);
 
 #endif

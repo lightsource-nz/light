@@ -49,9 +49,6 @@ static uint8_t spi_port_next = 0;
 uint8_t _light_board_device_id_to_handle_spi(uint8_t id, spi_inst_t **out_handle);
 uint8_t _light_board_device_id_to_handle_i2c(uint8_t id, i2c_inst_t **out_handle);
 
-// TODO pull this field into a device abstraction
-uint slice_num;
-
 void light_board_pin_set_func(uint8_t pin_id, uint8_t func)
 {
         switch (func)
@@ -236,15 +233,41 @@ uint8_t light_board_spi_read_byte(uint8_t device_id, uint8_t *out_data)
         return LIGHT_OK;
 }
 
+// TODO make this junk configurable via API
+uint8_t light_board_pwm_device_init(uint8_t pin)
+{
+        uint8_t slice = pwm_gpio_to_slice_num(pin);
+        uint8_t channel = pwm_gpio_to_channel(pin);
 
-/**
- * delay x ms
-**/
+        pwm_config conf;
+
+        // 350kHz clock
+        pwm_config_set_clkdiv(&conf, 380.0f);
+
+        pwm_init(slice, &conf, false);
+
+        
+        return LIGHT_OK;
+}
+void light_board_pwm_device_deinit(uint8_t pin)
+{
+        pwm_set_enabled(pwm_gpio_to_slice_num(pin), false);
+}
+
+void light_board_pwm_device_start(uint8_t pin)
+{
+        pwm_set_enabled(pwm_gpio_to_slice_num(pin), true);
+
+}
+void light_board_pwm_device_stop(uint8_t pin)
+{
+        pwm_set_enabled(pwm_gpio_to_slice_num(pin), false);
+}
+
 void light_board_sleep_ms(uint32_t xms)
 {
         sleep_ms(xms);
 }
-
 void light_board_sleep_us(uint32_t xus)
 {
         sleep_us(xus);

@@ -37,9 +37,6 @@ void light_board_pin_set_pulls(uint8_t pin_id, bool up, bool down);
 void light_board_gpio_write(uint8_t pin_id, uint8_t data);
 uint8_t light_board_gpio_read(uint8_t pin_id);
 
-void light_board_sleep_ms(uint32_t xms);
-void light_board_sleep_us(uint32_t xus);
-
 uint8_t light_board_i2c_device_id_next();
 uint8_t light_board_i2c_device_id_max();
 uint32_t light_board_i2c_device_init(uint8_t device_id, uint32_t baudrate, uint8_t pin_scl, uint8_t pin_sda);
@@ -57,6 +54,15 @@ uint8_t light_board_spi_device_deinit(uint8_t device_id);
 uint8_t light_board_spi_write_byte(uint8_t device_id, uint8_t data);
 uint8_t light_board_spi_write_bytes(uint8_t device_id, uint8_t *p_data, uint32_t length);
 uint8_t light_board_spi_read_byte(uint8_t device_id, uint8_t *out_data);
+
+uint8_t light_board_pwm_device_init(uint8_t pin);
+void light_board_pwm_device_deinit(uint8_t pin);
+void light_board_pwm_device_start(uint8_t pin);
+void light_board_pwm_device_stop(uint8_t pin);
+
+void light_board_sleep_ms(uint32_t xms);
+void light_board_sleep_us(uint32_t xus);
+
 
 //void light_board_pwm_set(uint8_t Value);
 

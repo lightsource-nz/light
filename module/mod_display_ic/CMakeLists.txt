@@ -12,6 +12,7 @@ add_library(mod_display_ic INTERFACE)
 target_sources(
     mod_display_ic INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/module.c
+    ${CMAKE_CURRENT_LIST_DIR}/src/sh1107.c
     )
 
 target_include_directories(
